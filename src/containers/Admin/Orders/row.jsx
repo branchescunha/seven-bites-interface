@@ -14,7 +14,7 @@ import { useState } from "react";
 
 import { api } from "../../../services/api";
 import { formatDate } from "../../../utils/formatDate";
-import { orderStatusOptions } from "./orderStatus";
+import { normalizeOrderStatus, orderStatusOptions } from "./orderStatus";
 import { ProductImage, SelectStatus } from "./styles";
 
 export function Row({ row, setOrders, orders }) {
@@ -60,7 +60,7 @@ export function Row({ row, setOrders, orders }) {
             options={orderStatusOptions.filter((status) => status.id !== 0)}
             placeholder="Status"
             defaultValue={orderStatusOptions.find(
-              (status) => status.value === row.status || null,
+              (status) => status.value === normalizeOrderStatus(row.status),
             )}
             onChange={(status) => newStatusOrder(row.orderId, status.value)}
             isLoading={loading}
@@ -88,7 +88,7 @@ export function Row({ row, setOrders, orders }) {
                   {row.products.map((product) => (
                     <TableRow key={product.id}>
                       <TableCell component="th" scope="row">
-                        {product.id}
+                        {product.quantity}
                       </TableCell>
                       <TableCell>{product.name}</TableCell>
                       <TableCell>{product.category}</TableCell>

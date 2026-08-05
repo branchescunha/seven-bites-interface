@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import "../../components/Stripe/styles.css";
 
 const SuccessIcon = (
-  // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
+  // biome-ignore lint/a11y/noSvgWithoutTitle: status icon is paired with adjacent text
   <svg
     width="16"
     height="14"
@@ -22,7 +22,7 @@ const SuccessIcon = (
 );
 
 const ErrorIcon = (
-  // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
+  // biome-ignore lint/a11y/noSvgWithoutTitle: status icon is paired with adjacent text
   <svg
     width="16"
     height="16"
@@ -40,7 +40,7 @@ const ErrorIcon = (
 );
 
 const InfoIcon = (
-  // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
+  // biome-ignore lint/a11y/noSvgWithoutTitle: status icon is paired with adjacent text
   <svg
     width="14"
     height="14"
@@ -68,7 +68,7 @@ const InfoIcon = (
 );
 
 const STATUS_CONTENT_MAP = {
-  suceeded: {
+  succeeded: {
     text: "Pagamento efetuado com sucesso",
     iconColor: "#30B130",
     icon: SuccessIcon,
@@ -103,6 +103,8 @@ export function CompletePayment() {
 
   const [status, setStatus] = useState("default");
   const [intentId, setIntentId] = useState(null);
+  const statusContent =
+    STATUS_CONTENT_MAP[status] || STATUS_CONTENT_MAP.default;
 
   useEffect(() => {
     if (!stripe) {
@@ -132,12 +134,12 @@ export function CompletePayment() {
       <div id="payment-status">
         <div
           id="status-icon"
-          style={{ backgroundColor: STATUS_CONTENT_MAP[status].iconColor }}
+          style={{ backgroundColor: statusContent.iconColor }}
         >
-          {STATUS_CONTENT_MAP[status].icon()}
+          {statusContent.icon()}
         </div>
         <h2 id="status-text" className="status-title">
-          {STATUS_CONTENT_MAP[status].text}
+          {statusContent.text}
         </h2>
         {intentId && (
           <div id="details-table">
@@ -167,7 +169,7 @@ export function CompletePayment() {
             target="_blank"
           >
             Ver detalhes
-            {/** biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
+            {/** biome-ignore lint/a11y/noSvgWithoutTitle: external link icon is decorative */}
             <svg
               width="15"
               height="14"
@@ -189,8 +191,8 @@ export function CompletePayment() {
             </svg>
           </a>
         )}
-        <a id="retry-button" href={STATUS_CONTENT_MAP[status].url}>
-          {STATUS_CONTENT_MAP[status].buttonText}
+        <a id="retry-button" href={statusContent.url}>
+          {statusContent.buttonText}
         </a>
       </div>
     </div>

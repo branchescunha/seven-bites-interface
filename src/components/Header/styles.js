@@ -66,6 +66,7 @@ export const Profile = styled.div`
   align-items: center;
   gap: 12px;
   font-size: 14px;
+  color: ${(props) => props.theme.white};
 
   p {
     color: ${(props) => props.theme.white};
@@ -83,6 +84,7 @@ export const LinkContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  color: ${(props) => props.theme.white};
 `;
 
 export const Logout = styled.button`

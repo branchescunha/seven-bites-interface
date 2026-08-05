@@ -5,9 +5,8 @@ import { CheckoutForm } from "../../components";
 import stripePromise from "../../config/stripeConfig";
 
 export function Checkout() {
-  const {
-    state: { clientSecret },
-  } = useLocation();
+  const { state } = useLocation();
+  const clientSecret = state?.clientSecret;
 
   if (!clientSecret) {
     return <div>Erro! Volte e tente novamente.</div>;

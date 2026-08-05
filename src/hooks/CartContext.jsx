@@ -6,21 +6,17 @@ export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
 
   const putProductInCart = (product) => {
-    const cartIndex = cartProducts.findIndex((prd) => prd.id === product.id);
+    const productAlreadyInCart = cartProducts.find(
+      (prd) => prd.id === product.id,
+    );
 
-    let newProductsInCart = [];
-    if (cartIndex >= 0) {
-      const newProductsInCart = cartProducts;
+    const newProductsInCart = productAlreadyInCart
+      ? cartProducts.map((prd) =>
+          prd.id === product.id ? { ...prd, quantity: prd.quantity + 1 } : prd,
+        )
+      : [...cartProducts, { ...product, quantity: 1 }];
 
-      newProductsInCart[cartIndex].quantity =
-        newProductsInCart[cartIndex].quanity + 1;
-
-      setCartProducts(newProductsInCart);
-    } else {
-      product.quantity = 1;
-      newProductsInCart = [...cartProducts, product];
-      setCartProducts(newProductsInCart);
-    }
+    setCartProducts(newProductsInCart);
 
     updateLocalStorage(newProductsInCart);
   };
@@ -50,9 +46,13 @@ export const CartProvider = ({ children }) => {
   };
 
   const decreaseProduct = (productId) => {
-    const cartIndex = cartProducts.findIndex((prd) => prd.id === productId);
+    const productInCart = cartProducts.find((prd) => prd.id === productId);
 
-    if (cartProducts[cartIndex].quantity > 1) {
+    if (!productInCart) {
+      return;
+    }
+
+    if (productInCart.quantity > 1) {
       const newCart = cartProducts.map((prd) => {
         return prd.id === productId
           ? { ...prd, quantity: prd.quantity - 1 }

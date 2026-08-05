@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
 
 import { api } from "../../../services/api";
-import { orderStatusOptions } from "./orderStatus";
+import { normalizeOrderStatus, orderStatusOptions } from "./orderStatus";
 import { Row } from "./row";
 import { Filter, FilterOption } from "./styles";
 
@@ -35,12 +35,12 @@ export function Orders() {
       name: order.user.name,
       orderId: order._id,
       date: order.createdAt,
-      status: order.status,
+      status: normalizeOrderStatus(order.status),
       products: order.products,
     };
   }
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: createData only maps order fields
   useEffect(() => {
     const newRows = filteredOrders.map((order) => createData(order));
 
@@ -51,7 +51,9 @@ export function Orders() {
     if (status.id === 0) {
       setFilteredOrders(orders);
     } else {
-      const newOrders = orders.filter((order) => order.status === status.value);
+      const newOrders = orders.filter(
+        (order) => normalizeOrderStatus(order.status) === status.value,
+      );
 
       setFilteredOrders(newOrders);
     }
@@ -59,7 +61,7 @@ export function Orders() {
     setActiveStatus(status.id);
   }
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reapply active filter when orders refresh
   useEffect(() => {
     if (activeStatus === 0) {
       setFilteredOrders(orders);
@@ -69,7 +71,9 @@ export function Orders() {
       );
 
       const newFilteredOrders = orders.filter(
-        (order) => order.status === orderStatusOptions[statusIndex].value,
+        (order) =>
+          normalizeOrderStatus(order.status) ===
+          orderStatusOptions[statusIndex].value,
       );
 
       setFilteredOrders(newFilteredOrders);

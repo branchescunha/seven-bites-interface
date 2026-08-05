@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Image } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 
@@ -37,9 +37,8 @@ export function EditProduct() {
 
   const navigate = useNavigate();
 
-  const {
-    state: { product },
-  } = useLocation();
+  const { state } = useLocation();
+  const product = state?.product;
 
   useEffect(() => {
     async function loadCategories() {
@@ -60,16 +59,22 @@ export function EditProduct() {
     resolver: yupResolver(schema),
   });
 
+  if (!product) {
+    return <Navigate to="/admin/produtos" replace />;
+  }
+
   const onSubmit = async (data) => {
     const productFormData = new FormData();
 
     productFormData.append("name", data.name);
     productFormData.append("price", data.price * 100);
     productFormData.append("category_id", data.category.id);
-    productFormData.append("file", data.file[0]);
+    if (data.file?.[0]) {
+      productFormData.append("file", data.file[0]);
+    }
     productFormData.append("offer", data.offer);
 
-    await toast.promise(api.pot(`/products/${product.id}`, productFormData), {
+    await toast.promise(api.put(`/products/${product.id}`, productFormData), {
       pending: "Editando o produto...",
       success: "Produto editado com sucesso",
       error: "Falha ao editar o produto! Tente novamente",

@@ -1,32 +1,45 @@
+export const ORDER_STATUS = {
+  all: "Todos",
+  pending: "Pedido Realizado",
+  legacyPending: "Pedido realizado",
+  preparing: "Em Preparação",
+  ready: "Pedido Pronto",
+  onTheWay: "Pedido à Caminho",
+  delivered: "Entregue",
+};
+
+export const normalizeOrderStatus = (status) =>
+  status === ORDER_STATUS.legacyPending ? ORDER_STATUS.pending : status;
+
 export const orderStatusOptions = [
   {
     id: 0,
-    value: "Todos",
-    label: "Todos",
+    value: ORDER_STATUS.all,
+    label: ORDER_STATUS.all,
   },
   {
     id: 1,
-    value: "Pedido Realizado",
-    label: "Pedido Realizado",
+    value: ORDER_STATUS.pending,
+    label: ORDER_STATUS.pending,
   },
   {
     id: 2,
-    value: "Em Preparação",
-    label: "Em Preparação",
+    value: ORDER_STATUS.preparing,
+    label: ORDER_STATUS.preparing,
   },
   {
     id: 3,
-    value: "Pedido Pronto",
-    label: "Pedido Pronto",
+    value: ORDER_STATUS.ready,
+    label: ORDER_STATUS.ready,
   },
   {
     id: 4,
-    value: "Pedido à Caminho",
-    label: "Pedido à Caminho",
+    value: ORDER_STATUS.onTheWay,
+    label: ORDER_STATUS.onTheWay,
   },
   {
     id: 5,
-    value: "Entregue",
-    label: "Entregue",
+    value: ORDER_STATUS.delivered,
+    label: ORDER_STATUS.delivered,
   },
 ];
