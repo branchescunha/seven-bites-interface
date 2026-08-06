@@ -4,6 +4,8 @@ export * from "./CartButton";
 export * from "./CartItems";
 export * from "./CartResume";
 export * from "./CategoriesCarousel";
+export * from "./ErrorBoundary";
+export * from "./FeedbackState";
 export * from "./Footer";
 export * from "./Header";
 export * from "./OffersCarousel";

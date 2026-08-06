@@ -10,11 +10,13 @@ import { Container } from "./styles";
 
 export function CartResume() {
   const [finalPrice, setFinalPrice] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [deliveryTax] = useState(500);
 
   const navigate = useNavigate();
 
   const { cartProducts } = useCart();
+  const isCartEmpty = cartProducts.length === 0;
 
   useEffect(() => {
     const sumAllItems = cartProducts.reduce((acc, current) => {
@@ -25,6 +27,12 @@ export function CartResume() {
   }, [cartProducts]);
 
   const submitOrder = async () => {
+    if (isCartEmpty || isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
     const products = cartProducts.map((product) => {
       return {
         productId: product.id,
@@ -49,6 +57,8 @@ export function CartResume() {
         progress: undefined,
         theme: "dark",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -67,7 +77,9 @@ export function CartResume() {
           <p>{formatPrice(finalPrice + deliveryTax)}</p>
         </div>
       </Container>
-      <Button onClick={submitOrder}>Finalizar Pedido</Button>
+      <Button disabled={isCartEmpty || isSubmitting} onClick={submitOrder}>
+        {isSubmitting ? "Processando..." : "Finalizar Pedido"}
+      </Button>
     </div>
   );
 }

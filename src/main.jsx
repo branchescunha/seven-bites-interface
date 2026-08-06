@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 
+import { ErrorBoundary } from "./components";
 import stripePromise from "./config/stripeConfig";
 import AppProvider from "./hooks";
 import { Router } from "./routes";
@@ -15,11 +16,13 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider theme={standardTheme}>
       <AppProvider>
-        <Elements stripe={stripePromise}>
-          <BrowserRouter>
-            <Router />
-          </BrowserRouter>
-        </Elements>
+        <ErrorBoundary>
+          <Elements stripe={stripePromise}>
+            <BrowserRouter>
+              <Router />
+            </BrowserRouter>
+          </Elements>
+        </ErrorBoundary>
         <GlobalStyles />
         <ToastContainer autoClose={2000} theme="dark" />
       </AppProvider>

@@ -31,17 +31,25 @@ export function CartItems() {
           cartProducts.map((product) => (
             <Table.Tr key={product.id}>
               <Table.Td>
-                <ProductImage src={product.url} />
+                <ProductImage src={product.url} alt={product.name} />
               </Table.Td>
               <Table.Td>{product.name}</Table.Td>
               <Table.Td>{product.currencyValue}</Table.Td>
               <Table.Td>
                 <ButtonGroup>
-                  {/** biome-ignore lint/a11y/useButtonType: <explanation> */}
-                  <button onClick={() => decreaseProduct(product.id)}>-</button>
+                  <button
+                    type="button"
+                    onClick={() => decreaseProduct(product.id)}
+                  >
+                    -
+                  </button>
                   {product.quantity}
-                  {/** biome-ignore lint/a11y/useButtonType: <explanation> */}
-                  <button onClick={() => increaseProduct(product.id)}>+</button>
+                  <button
+                    type="button"
+                    onClick={() => increaseProduct(product.id)}
+                  >
+                    +
+                  </button>
                 </ButtonGroup>
               </Table.Td>
               <Table.Td>

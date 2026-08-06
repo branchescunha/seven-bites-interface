@@ -7,12 +7,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
 
+import { FeedbackState } from "../../../components";
 import { api } from "../../../services/api";
 import { normalizeOrderStatus, orderStatusOptions } from "./orderStatus";
 import { Row } from "./row";
 import { Filter, FilterOption } from "./styles";
 
 export function Orders() {
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [activeStatus, setActiveStatus] = useState(0);
@@ -21,10 +24,17 @@ export function Orders() {
 
   useEffect(() => {
     async function loadOrders() {
-      const { data } = await api.get("orders");
+      try {
+        const { data } = await api.get("orders");
+        const orderList = Array.isArray(data) ? data : [];
 
-      setOrders(data);
-      setFilteredOrders(data);
+        setOrders(orderList);
+        setFilteredOrders(orderList);
+      } catch (err) {
+        setError(err.publicMessage || "Nao foi possivel carregar os pedidos.");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     loadOrders();
@@ -86,6 +96,7 @@ export function Orders() {
         {orderStatusOptions.map((status) => (
           <FilterOption
             key={status.id}
+            type="button"
             onClick={() => handleStatus(status)}
             $isActiveStatus={activeStatus === status.id}
           >
@@ -94,29 +105,39 @@ export function Orders() {
         ))}
       </Filter>
 
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell>Pedido</TableCell>
-              <TableCell>Cliente</TableCell>
-              <TableCell>Data do Pedido</TableCell>
-              <TableCell>Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <Row
-                key={row.orderId}
-                row={row}
-                orders={orders}
-                setOrders={setOrders}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {isLoading && <FeedbackState message="Carregando pedidos..." />}
+      {!isLoading && error && (
+        <FeedbackState message={error} title="Pedidos indisponiveis" />
+      )}
+      {!isLoading && !error && rows.length === 0 && (
+        <FeedbackState message="Nenhum pedido encontrado." />
+      )}
+
+      {!isLoading && !error && rows.length > 0 && (
+        <TableContainer component={Paper}>
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell>Pedido</TableCell>
+                <TableCell>Cliente</TableCell>
+                <TableCell>Data do Pedido</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <Row
+                  key={row.orderId}
+                  row={row}
+                  orders={orders}
+                  setOrders={setOrders}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </>
   );
 }

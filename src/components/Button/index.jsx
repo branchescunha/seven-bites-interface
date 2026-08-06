@@ -6,5 +6,5 @@ export function Button({ children, ...props }) {
 }
 
 Button.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.node,
 };

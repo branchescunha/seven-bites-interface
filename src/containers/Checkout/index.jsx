@@ -1,7 +1,7 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { useLocation } from "react-router-dom";
 
-import { CheckoutForm } from "../../components";
+import { CheckoutForm, FeedbackState } from "../../components";
 import stripePromise from "../../config/stripeConfig";
 
 export function Checkout() {
@@ -9,7 +9,12 @@ export function Checkout() {
   const clientSecret = state?.clientSecret;
 
   if (!clientSecret) {
-    return <div>Erro! Volte e tente novamente.</div>;
+    return (
+      <FeedbackState
+        message="Volte ao carrinho e tente iniciar o pagamento novamente."
+        title="Pagamento indisponivel"
+      />
+    );
   }
 
   return (

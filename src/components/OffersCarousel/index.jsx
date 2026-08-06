@@ -5,25 +5,35 @@ import "react-multi-carousel/lib/styles.css";
 import { api } from "../../services/api";
 import { formatPrice } from "../../utils/formatPrice";
 import { CardProduct } from "../CardProduct";
+import { FeedbackState } from "../FeedbackState";
 import { Container, Title } from "./styles";
 
 const Carousel = CarouselModule.default || CarouselModule;
 
 export function OffersCarousel() {
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
     async function loadProducts() {
-      const { data } = await api.get("/products");
+      try {
+        const { data } = await api.get("/products");
+        const productList = Array.isArray(data) ? data : [];
 
-      const onlyOffers = data
-        .filter((product) => product.offer)
-        .map((product) => ({
-          currencyValue: formatPrice(product.price),
-          ...product,
-        }));
+        const onlyOffers = productList
+          .filter((product) => product.offer)
+          .map((product) => ({
+            currencyValue: formatPrice(product.price),
+            ...product,
+          }));
 
-      setOffers(onlyOffers);
+        setOffers(onlyOffers);
+      } catch (err) {
+        setError(err.publicMessage || "Nao foi possivel carregar ofertas.");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     loadProducts();
@@ -52,16 +62,26 @@ export function OffersCarousel() {
     <Container>
       <Title>Ofertas do dia</Title>
 
-      <Carousel
-        responsive={responsive}
-        infinite={true}
-        partialVisible={false}
-        itemClass="carousel-item"
-      >
-        {offers.map((product) => (
-          <CardProduct key={product.id} product={product} />
-        ))}
-      </Carousel>
+      {isLoading && <FeedbackState message="Carregando ofertas..." />}
+      {!isLoading && error && (
+        <FeedbackState message={error} title="Ofertas indisponiveis" />
+      )}
+      {!isLoading && !error && offers.length === 0 && (
+        <FeedbackState message="Nenhuma oferta disponivel." />
+      )}
+
+      {!isLoading && !error && offers.length > 0 && (
+        <Carousel
+          responsive={responsive}
+          infinite={true}
+          partialVisible={false}
+          itemClass="carousel-item"
+        >
+          {offers.map((product) => (
+            <CardProduct key={product.id} product={product} />
+          ))}
+        </Carousel>
+      )}
     </Container>
   );
 }

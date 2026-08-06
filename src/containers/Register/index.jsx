@@ -70,7 +70,7 @@ export function Register() {
       } else {
         throw new Error();
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error("Falha no sistema! Tente novamente.");
     }
   };

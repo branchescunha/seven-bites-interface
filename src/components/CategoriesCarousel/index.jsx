@@ -4,19 +4,28 @@ import "react-multi-carousel/lib/styles.css";
 
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+import { FeedbackState } from "../FeedbackState";
 import { CategoryButton, Container, ContainerItems, Title } from "./styles";
 
 const Carousel = CarouselModule.default || CarouselModule;
 
 export function CategoriesCarousel() {
   const [categories, setCategories] = useState([]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function loadCategories() {
-      const { data } = await api.get("/categories");
+      try {
+        const { data } = await api.get("/categories");
 
-      setCategories(data);
+        setCategories(Array.isArray(data) ? data : []);
+      } catch (err) {
+        setError(err.publicMessage || "Nao foi possivel carregar categorias.");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     loadCategories();
@@ -45,27 +54,37 @@ export function CategoriesCarousel() {
     <Container>
       <Title>Categorias</Title>
 
-      <Carousel
-        responsive={responsive}
-        infinite={true}
-        partialVisible={false}
-        itemClass="carousel-item"
-      >
-        {categories.map((category) => (
-          <ContainerItems key={category.id} imageUrl={category.url}>
-            <CategoryButton
-              onClick={() => {
-                navigate({
-                  pathname: "/cardapio",
-                  search: `?categoria=${category.id}`,
-                });
-              }}
-            >
-              {category.name}
-            </CategoryButton>
-          </ContainerItems>
-        ))}
-      </Carousel>
+      {isLoading && <FeedbackState message="Carregando categorias..." />}
+      {!isLoading && error && (
+        <FeedbackState message={error} title="Categorias indisponiveis" />
+      )}
+      {!isLoading && !error && categories.length === 0 && (
+        <FeedbackState message="Nenhuma categoria cadastrada." />
+      )}
+
+      {!isLoading && !error && categories.length > 0 && (
+        <Carousel
+          responsive={responsive}
+          infinite={true}
+          partialVisible={false}
+          itemClass="carousel-item"
+        >
+          {categories.map((category) => (
+            <ContainerItems key={category.id} imageUrl={category.url}>
+              <CategoryButton
+                onClick={() => {
+                  navigate({
+                    pathname: "/cardapio",
+                    search: `?categoria=${category.id}`,
+                  });
+                }}
+              >
+                {category.name}
+              </CategoryButton>
+            </ContainerItems>
+          ))}
+        </Carousel>
+      )}
     </Container>
   );
 }

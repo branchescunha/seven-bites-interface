@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "format": "biome format --write .",
-    "lint": "biome check . ",
-    "check": "biome check --write ."
+    "lint": "biome check .",
+    "check": "biome check ."
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
