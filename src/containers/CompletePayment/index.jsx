@@ -1,7 +1,8 @@
-import { useStripe } from "@stripe/react-stripe-js";
+import { Elements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 
 import "../../components/Stripe/styles.css";
+import stripePromise from "../../config/stripeConfig";
 
 const SuccessIcon = (
   // biome-ignore lint/a11y/noSvgWithoutTitle: status icon is paired with adjacent text
@@ -98,7 +99,7 @@ const STATUS_CONTENT_MAP = {
   },
 };
 
-export function CompletePayment() {
+function CompletePaymentContent() {
   const stripe = useStripe();
 
   const [status, setStatus] = useState("default");
@@ -136,7 +137,7 @@ export function CompletePayment() {
           id="status-icon"
           style={{ backgroundColor: statusContent.iconColor }}
         >
-          {statusContent.icon()}
+          {statusContent.icon}
         </div>
         <h2 id="status-text" className="status-title">
           {statusContent.text}
@@ -196,5 +197,13 @@ export function CompletePayment() {
         </a>
       </div>
     </div>
+  );
+}
+
+export function CompletePayment() {
+  return (
+    <Elements stripe={stripePromise}>
+      <CompletePaymentContent />
+    </Elements>
   );
 }

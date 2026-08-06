@@ -18,9 +18,8 @@ export function CheckoutForm() {
 
   const stripe = useStripe();
   const elements = useElements();
-  const {
-    state: { dpmCheckerLink },
-  } = useLocation();
+  const { state } = useLocation();
+  const dpmCheckerLink = state?.dpmCheckerLink;
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,15 +46,17 @@ export function CheckoutForm() {
       try {
         const products = cartProducts.map((product) => {
           return {
-            id: product.id,
+            productId: product.id,
             quantity: product.quantity,
-            price: product.price,
           };
         });
 
         const { status } = await api.post(
           "/orders",
-          { products },
+          {
+            paymentIntentId: paymentIntent.id,
+            products,
+          },
           {
             validateStatus: () => true,
           },
@@ -75,13 +76,15 @@ export function CheckoutForm() {
         } else {
           throw new Error();
         }
-      } catch (error) {
+      } catch (_error) {
         toast.error("Falha no sistema! Tente novamente.");
       }
     } else {
-      navigate(
-        `/complete?payment_intent_client_secret=${paymentIntent.client_secret}`,
-      );
+      const clientSecret = paymentIntent?.client_secret;
+
+      if (clientSecret) {
+        navigate(`/complete?payment_intent_client_secret=${clientSecret}`);
+      }
     }
 
     setIsLoading(false);
@@ -95,8 +98,8 @@ export function CheckoutForm() {
     <div className="container">
       <form id="payment-form" onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" options={paymentElementOptions} />
-        {/** biome-ignore lint/a11y/useButtonType: <explanation> */}
         <button
+          type="submit"
           disabled={isLoading || !stripe || !elements}
           id="submit"
           className="button"

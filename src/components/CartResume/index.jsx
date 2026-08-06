@@ -14,7 +14,7 @@ export function CartResume() {
 
   const navigate = useNavigate();
 
-  const { cartProducts, clearCart } = useCart();
+  const { cartProducts } = useCart();
 
   useEffect(() => {
     const sumAllItems = cartProducts.reduce((acc, current) => {
@@ -27,9 +27,8 @@ export function CartResume() {
   const submitOrder = async () => {
     const products = cartProducts.map((product) => {
       return {
-        id: product.id,
+        productId: product.id,
         quantity: product.quantity,
-        price: product.price,
       };
     });
 
@@ -39,7 +38,7 @@ export function CartResume() {
       navigate("/checkout", {
         state: data,
       });
-    } catch (err) {
+    } catch (_err) {
       toast.error("Erro! Tente novamente.", {
         position: "top-right",
         autoClose: 5000,
