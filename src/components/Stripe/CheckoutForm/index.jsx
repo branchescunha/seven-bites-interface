@@ -5,12 +5,11 @@ import {
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
-import "../styles.css";
 import { toast } from "react-toastify";
 
 import { useCart } from "../../../hooks/CartContext";
 import { api } from "../../../services/api";
+import "../styles.css";
 
 export function CheckoutForm() {
   const { cartProducts, clearCart } = useCart();
@@ -117,15 +116,15 @@ export function CheckoutForm() {
 
       <div id="dpm-annotation">
         <p>
-          Os métodos de pagamento são disponibilizados de acordo com a sua
-          região.&nbsp;
+          Os metodos de pagamento sao disponibilizados de acordo com a sua
+          regiao.&nbsp;
           <a
             href={dpmCheckerLink}
             target="_blank"
             rel="noopener noreferrer"
             id="dpm-integration-checker"
           >
-            Ver métodos de pagamento
+            Ver metodos de pagamento
           </a>
         </p>
       </div>

@@ -1,10 +1,9 @@
 import { SignOut } from "@phosphor-icons/react";
 import { useResolvedPath } from "react-router-dom";
 
-import Logo from "../../assets/logo-2.svg";
 import { useUser } from "../../hooks/UserContext";
 import { navLinks } from "./navLinks";
-import { Container, Footer, NavLink, NavLinkContainer } from "./styles";
+import { Brand, Container, Footer, NavLink, NavLinkContainer } from "./styles";
 
 export function SideNavAdmin() {
   const { logout } = useUser();
@@ -12,7 +11,10 @@ export function SideNavAdmin() {
 
   return (
     <Container>
-      <img src={Logo} alt="Hamburger Logo Seven Bites" />
+      <Brand>
+        <strong>Seven Bites</strong>
+        <span>Admin</span>
+      </Brand>
       <NavLinkContainer>
         {navLinks.map((link) => (
           <NavLink

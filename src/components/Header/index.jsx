@@ -3,6 +3,7 @@ import { useNavigate, useResolvedPath } from "react-router-dom";
 
 import { useUser } from "../../hooks/UserContext";
 import {
+  Brand,
   Container,
   Content,
   HeaderLink,
@@ -27,6 +28,10 @@ export function Header() {
   return (
     <Container>
       <Content>
+        <Brand to="/" aria-label="Seven Bites - pagina inicial">
+          <strong>Seven Bites</strong>
+          <span>Sete mordidas. Um ritual.</span>
+        </Brand>
         <Navigation>
           <div>
             <HeaderLink to="/" $isActive={pathname === "/"}>

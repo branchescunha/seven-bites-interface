@@ -2,27 +2,70 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.mainBlack};
+  position: sticky;
+  top: 0;
+  z-index: 10;
   width: 100%;
-  height: 72px;
-  padding: 0 56px;
+  min-height: 78px;
+  padding: 0 32px;
+  border-bottom: 1px solid rgba(234, 223, 210, 0.16);
+  background-color: rgba(32, 33, 36, 0.96);
+  backdrop-filter: blur(16px);
+
+  @media (max-width: 760px) {
+    padding: 12px 16px;
+  }
 `;
 
 export const Content = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   width: 100%;
   max-width: 1280px;
+  min-height: 78px;
   margin: 0 auto;
+  gap: 24px;
+
+  @media (max-width: 920px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+`;
+
+export const Brand = styled(Link)`
+  display: flex;
+  min-width: 180px;
+  flex-direction: column;
+  color: ${(props) => props.theme.white};
+  text-decoration: none;
+
+  strong {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  span {
+    margin-top: 5px;
+    color: ${(props) => props.theme.amber};
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 520px) {
+    align-items: center;
+  }
 `;
 
 export const Navigation = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 72px;
+  min-height: 72px;
 
   div {
     display: flex;
@@ -40,17 +83,18 @@ export const Navigation = styled.nav`
 export const HeaderLink = styled(Link)`
   color: ${(props) =>
     props.$isActive
-      ? (props) => props.theme.purple
+      ? (props) => props.theme.amber
       : (props) => props.theme.white};
   border-bottom: ${(props) =>
-    props.$isActive ? `1px solid ${(props) => props.theme.purple}` : "none"};
+    props.$isActive ? `2px solid ${(props) => props.theme.amber}` : "none"};
   padding-bottom: 5px;
   text-decoration: none;
   font-size: 14px;
+  font-weight: 700;
   transition: color 200ms;
 
   &:hover {
-    color: ${(props) => props.theme.purple};
+    color: ${(props) => props.theme.amber};
   }
 `;
 
@@ -58,7 +102,13 @@ export const Options = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 48px;
+  gap: 28px;
+
+  @media (max-width: 520px) {
+    width: 100%;
+    justify-content: space-between;
+    gap: 16px;
+  }
 `;
 
 export const Profile = styled.div`
@@ -75,7 +125,16 @@ export const Profile = styled.div`
 
     span {
       font-weight: 700;
-      color: ${(props) => props.theme.purple};
+      color: ${(props) => props.theme.amber};
+    }
+  }
+
+  @media (max-width: 520px) {
+    p {
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 `;
@@ -88,7 +147,7 @@ export const LinkContainer = styled.div`
 `;
 
 export const Logout = styled.button`
-  color: ${(props) => props.theme.red};
+  color: ${(props) => props.theme.amber};
   text-decoration: none;
   font-weight: 700;
   background-color: transparent;

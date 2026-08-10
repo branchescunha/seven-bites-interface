@@ -9,7 +9,7 @@ export const Container = styled.main`
   gap: 16px;
   padding: 24px;
   text-align: center;
-  background-color: ${(props) => props.theme.secondWhite};
+  background-color: ${(props) => props.theme.cream};
   color: ${(props) => props.theme.mainBlack};
 
   h1 {
@@ -33,7 +33,7 @@ export const Actions = styled.div`
     border-radius: 8px;
     padding: 10px 16px;
     cursor: pointer;
-    background-color: ${(props) => props.theme.purple};
+    background-color: ${(props) => props.theme.brand};
     color: ${(props) => props.theme.white};
     font-weight: 600;
   }

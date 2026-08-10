@@ -25,10 +25,10 @@ export const Container = styled.div`
   button {
     border: none;
     border-radius: 8px;
-    padding: 9px 14px;
+    padding: 10px 16px;
     cursor: pointer;
-    background-color: ${(props) => props.theme.purple};
+    background-color: ${(props) => props.theme.brand};
     color: ${(props) => props.theme.white};
-    font-weight: 600;
+    font-weight: 700;
   }
 `;

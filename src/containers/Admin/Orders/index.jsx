@@ -11,7 +11,7 @@ import { FeedbackState } from "../../../components";
 import { api } from "../../../services/api";
 import { normalizeOrderStatus, orderStatusOptions } from "./orderStatus";
 import { Row } from "./row";
-import { Filter, FilterOption } from "./styles";
+import { Container, Filter, FilterOption } from "./styles";
 
 export function Orders() {
   const [error, setError] = useState("");
@@ -91,7 +91,7 @@ export function Orders() {
   }, [orders]);
 
   return (
-    <>
+    <Container>
       <Filter>
         {orderStatusOptions.map((status) => (
           <FilterOption
@@ -138,6 +138,6 @@ export function Orders() {
           </Table>
         </TableContainer>
       )}
-    </>
+    </Container>
   );
 }

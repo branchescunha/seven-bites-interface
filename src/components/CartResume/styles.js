@@ -2,11 +2,14 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: ${(props) => props.theme.white};
-  border-radius: 20px;
+  border: 1px solid ${(props) => props.theme.border};
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 18px 36px rgba(32, 33, 36, 0.08);
 
   * {
     color: ${(props) => props.theme.darkGray};
@@ -26,13 +29,11 @@ export const Container = styled.div`
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 20px;
-      background-color: ${(props) => props.theme.darkGray};
+      background-color: ${(props) => props.theme.graphite};
       color: ${(props) => props.theme.white};
       width: 100%;
       padding: 15px;
       text-align: center;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
     }
 
     .items {
@@ -63,9 +64,11 @@ export const Container = styled.div`
     font-weight: 700;
     margin-top: 24px;
     padding: 20px;
+    border-top: 1px solid ${(props) => props.theme.border};
 
     * {
       font-weight: 700;
+      color: ${(props) => props.theme.graphite};
     }
   }
 `;

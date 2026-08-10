@@ -20,7 +20,7 @@ export function CartItems() {
         <Table.Tr>
           <Table.Th></Table.Th>
           <Table.Th>Itens</Table.Th>
-          <Table.Th>Preço</Table.Th>
+          <Table.Th>Preco</Table.Th>
           <Table.Th>Quantidade</Table.Th>
           <Table.Th>Total</Table.Th>
           <Table.Th></Table.Th>
@@ -60,14 +60,14 @@ export function CartItems() {
               <Table.Td>
                 <TrashImage
                   src={TrashIcon}
-                  alt="lixeira"
+                  alt="Remover item"
                   onClick={() => deleteProduct(product.id)}
                 />
               </Table.Td>
             </Table.Tr>
           ))
         ) : (
-          <EmptyCart>Carrinho Vazio</EmptyCart>
+          <EmptyCart>Carrinho vazio</EmptyCart>
         )}
       </Table.Body>
     </Table.Root>

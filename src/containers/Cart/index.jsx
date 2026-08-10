@@ -1,4 +1,3 @@
-import Logo from "../../assets/logo-2.svg";
 import { CartItems, CartResume } from "../../components";
 import { Banner, Container, Content, Title } from "./styles";
 
@@ -6,9 +5,10 @@ export function Cart() {
   return (
     <Container>
       <Banner>
-        <img src={Logo} alt="logo seven bites" />
+        <strong>Seven Bites</strong>
+        <span>Revise seu pedido antes do pagamento.</span>
       </Banner>
-      <Title>Checkout - Pedido</Title>
+      <Title>Seu pedido</Title>
       <Content>
         <CartItems />
         <CartResume />

@@ -21,9 +21,7 @@ export function Menu() {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const navigate = useNavigate();
-
   const { search } = useLocation();
-
   const queryParams = new URLSearchParams(search);
 
   const [activeCategory, setActiveCategory] = useState(() => {
@@ -84,12 +82,8 @@ export function Menu() {
     <Container>
       <Banner>
         <h1>
-          O MELHOR
-          <br />
-          HAMBURGUER
-          <br />
-          ESTÁ AQUI!
-          <span>Este cardápio está irresistível!</span>
+          Cardapio Seven Bites
+          <span>Escolha sua proxima mordida com preparo sob demanda.</span>
         </h1>
       </Banner>
       <CategoryMenu>

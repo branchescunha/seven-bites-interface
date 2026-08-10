@@ -7,18 +7,20 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
 `;
 
 export const Form = styled.form`
-  border-radius: 20px;
-  background-color: ${(props) => props.theme.black};
+  border: 1px solid ${(props) => props.theme.border};
+  border-radius: 8px;
+  background-color: ${(props) => props.theme.white};
   padding: 32px;
   width: 100%;
-  max-width: 380px;
+  max-width: 460px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  box-shadow: 0 18px 36px rgba(32, 33, 36, 0.08);
 `;
 
 export const InputGroup = styled.div`
@@ -28,31 +30,33 @@ export const InputGroup = styled.div`
 `;
 
 export const Label = styled.label`
-  color: ${(props) => props.theme.white};
+  color: ${(props) => props.theme.graphite};
   font-size: 14px;
+  font-weight: 700;
 `;
 
 export const Input = styled.input`
   width: 100%;
   height: 48px;
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 0 12px;
-  border: none;
+  border: 1px solid ${(props) => props.theme.border};
 `;
 
 export const LabelUpload = styled.label`
   cursor: pointer;
-  border: 1px dashed ${(props) => props.theme.white};
-  border-radius: 5px;
+  border: 1px dashed ${(props) => props.theme.brand};
+  border-radius: 8px;
   padding: 10px;
   display: flex;
-  color: ${(props) => props.theme.white};
+  color: ${(props) => props.theme.brand};
   margin: 20px 0;
+  font-weight: 700;
 
   > svg {
     width: 20px;
     height: 20px;
-    fill: ${(props) => props.theme.white};
+    fill: ${(props) => props.theme.brand};
     margin-right: 4px;
   }
 
@@ -64,7 +68,7 @@ export const LabelUpload = styled.label`
 export const Select = styled(ReactSelect)``;
 
 export const SubmitButton = styled(Button)`
-  margin-top: 40px;
+  margin-top: 28px;
 `;
 
 export const ErrorMessage = styled.span`
@@ -79,6 +83,8 @@ export const ContainerCheckbox = styled.div`
   gap: 10px;
   cursor: pointer;
   margin-top: 10px;
+  color: ${(props) => props.theme.graphite};
+  font-weight: 600;
 
   input {
     cursor: pointer;

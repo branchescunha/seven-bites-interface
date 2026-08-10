@@ -4,7 +4,8 @@ export function Footer() {
   return (
     <Container>
       <p>
-        Desenvolvido por Branches Cunha - 2026 - Todos os direitos reservados
+        Seven Bites - Hamburguers artesanais, pedidos online e preparo sob
+        demanda.
       </p>
     </Container>
   );

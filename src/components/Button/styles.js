@@ -4,20 +4,27 @@ export const ContainerButton = styled.button`
   width: 100%;
   height: 52px;
   border: none;
-  border-radius: 5px;
-  background-color: ${(props) => props.theme.purple};
-  font-family: "Road Rage", sans-serif;
-  font-size: 30px;
+  border-radius: 8px;
+  background-color: ${(props) => props.theme.brand};
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
   color: ${(props) => props.theme.white};
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
 
   &:hover {
-    background-color: ${(props) => props.theme.secondDarkPurple};
-    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='white' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-    border-radius: 5px;
+    background-color: ${(props) => props.theme.brandDark};
+    box-shadow: 0 10px 24px rgba(95, 16, 29, 0.22);
+    transform: translateY(-1px);
   }
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.65;
+    transform: none;
+    box-shadow: none;
   }
 `;

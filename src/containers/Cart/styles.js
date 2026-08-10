@@ -1,38 +1,44 @@
 import styled from "styled-components";
 
-import Background from "../../assets/background.svg";
-import Texture from "../../assets/texture.svg";
-
 export const Container = styled.div`
   width: 100%;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
-    url("${Background}");
   min-height: 100vh;
+  background: ${(props) => props.theme.cream};
 `;
 
 export const Banner = styled.div`
-  background: url("${Texture}");
-  background-color: ${(props) => props.theme.mainBlack};
-  background-size: cover;
-  background-position: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
+  gap: 10px;
+  min-height: 210px;
+  padding: 48px 20px;
+  background:
+    linear-gradient(110deg, rgba(32, 33, 36, 0.95), rgba(95, 16, 29, 0.82)),
+    ${(props) => props.theme.graphite};
 
-  height: 180px;
+  strong {
+    color: ${(props) => props.theme.white};
+    font-size: clamp(34px, 6vw, 56px);
+    font-weight: 800;
+    line-height: 1;
+  }
 
-  img {
-    height: 130px;
+  span {
+    color: ${(props) => props.theme.amber};
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
   }
 `;
 
 export const Title = styled.h1`
   font-size: 32px;
   font-weight: 800;
+  margin-top: 36px;
   padding-bottom: 12px;
-  color: ${(props) => props.theme.green};
+  color: ${(props) => props.theme.graphite};
   text-align: center;
   position: relative;
 
@@ -43,16 +49,20 @@ export const Title = styled.h1`
     content: "";
     width: 56px;
     height: 4px;
-    background-color: ${(props) => props.theme.green};
+    background-color: ${(props) => props.theme.brand};
   }
 `;
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: 1fr 30%;
-  gap: 40px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 24px;
   width: 100%;
-  max-width: 1280px;
-  padding: 40px;
+  max-width: 1180px;
+  padding: 40px 24px 72px;
   margin: 0 auto;
+
+  @media (max-width: 920px) {
+    grid-template-columns: 1fr;
+  }
 `;

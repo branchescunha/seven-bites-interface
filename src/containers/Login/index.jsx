@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import Logo1 from "../../assets/logo-1.svg";
+
 import { Button } from "../../components/Button";
 import { useUser } from "../../hooks/UserContext";
 import { api } from "../../services/api";
@@ -25,11 +25,11 @@ export function Login() {
     .object({
       email: yup
         .string()
-        .email("Digite um e-mail válido")
-        .required("O e-mail é obrigatório"),
+        .email("Digite um e-mail valido")
+        .required("O e-mail e obrigatorio"),
       password: yup
         .string()
-        .min(6, "A senha deve ter no mínimo 6 caracteres")
+        .min(6, "A senha deve ter no minimo 6 caracteres")
         .required("Digite uma senha"),
     })
     .required();
@@ -71,32 +71,31 @@ export function Login() {
   return (
     <Container>
       <LeftContainer>
-        <img src={Logo1} alt="Logo Seven Bites" />
+        <span>Seven Bites</span>
+        <h1>Entre para pedir sua proxima mordida.</h1>
+        <p>Cardapio online, carrinho persistente e pagamento seguro.</p>
       </LeftContainer>
       <RightContainer>
         <Title>
-          Olá, seja bem vindo ao <span>Seven Bites!</span>
-          <br />
-          Acesse com seu
-          <span> Login e Senha</span>
+          Acesse sua conta <span>Seven Bites</span>
         </Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
             <label htmlFor="email">Email</label>
-            <input type="email" {...register("email")} />
+            <input id="email" type="email" {...register("email")} />
             <p>{errors?.email?.message}</p>
           </InputContainer>
 
           <InputContainer>
             <label htmlFor="password">Senha</label>
-            <input type="password" {...register("password")} />
+            <input id="password" type="password" {...register("password")} />
             <p>{errors?.password?.message}</p>
           </InputContainer>
 
           <Button type="submit">Entrar</Button>
         </Form>
         <p>
-          Não possui conta? <Link to="/cadastro">Clique aqui</Link>
+          Ainda nao possui conta? <Link to="/cadastro">Criar conta</Link>
         </p>
       </RightContainer>
     </Container>
