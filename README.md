@@ -1,31 +1,45 @@
-# Seven Bites Interface
+# Seven Bites
 
-Interface web desenvolvida para o Seven Bites, uma aplicação fullstack para gerenciamento de hamburgueria, com catálogo de produtos, carrinho de compras, checkout com Stripe e painel administrativo.
+Interface web do Seven Bites, uma aplicação fullstack para catálogo, carrinho, checkout com Stripe e painel administrativo de uma hamburgueria.
 
-O projeto foi construído com React e Vite, utilizando Styled Components, Context API, React Router DOM e integração completa com a API do Seven Bites.
+O frontend foi redesenhado com identidade visual própria, design system centralizado, responsividade real e preservação dos fluxos principais de autenticação, carrinho, pedidos, pagamento e administração.
+
+## Demonstracao
+
+Screenshots finais preparados em:
+
+```txt
+../prints/release
+```
+
+Principais telas:
+
+- Home
+- Cardapio
+- Carrinho
+- Login
+- Cadastro
+- Checkout
+- Admin produtos
+- Admin pedidos
 
 ## Funcionalidades
 
-- Login de usuários
-- Controle de acesso entre usuário e administrador
-- Catálogo de produtos
-- Filtro de produtos por categoria
-- Carrossel de categorias
-- Carrossel de ofertas
-- Carrinho de compras
-- Controle de quantidade de produtos no carrinho
-- Cálculo de subtotal e total
-- Checkout com Stripe
-- Tela de confirmação de pagamento
-- Painel administrativo
-- Listagem de produtos
-- Cadastro de produtos
-- Edição de produtos
-- Listagem de pedidos
-- Atualização de status dos pedidos
-- Upload de imagens
-- Feedback visual com Toasts
-- Padronização visual com tema global
+- Cadastro e login de usuarios.
+- Controle de sessao com redirecionamento seguro em `401`.
+- Catalogo de produtos e categorias.
+- Filtros por categoria.
+- Carrosseis de categorias e ofertas.
+- Carrinho persistido localmente.
+- Ajuste de quantidade e resumo do pedido.
+- Checkout com Stripe Elements.
+- Tela de retorno de pagamento.
+- Painel administrativo.
+- Listagem e edicao de produtos.
+- Listagem, filtro e atualizacao de pedidos.
+- Estados de carregamento, erro e vazio.
+- Error Boundary global.
+- Build otimizado por lazy loading de rotas.
 
 ## Tecnologias utilizadas
 
@@ -36,115 +50,55 @@ O projeto foi construído com React e Vite, utilizando Styled Components, Contex
 - React Router DOM
 - Context API
 - Axios
-- Stripe
-- React Toastify
-- React Multi Carousel
+- Stripe React / Stripe JS
+- React Hook Form
+- Yup
 - Material UI
 - Phosphor Icons
 - Biome
+
+## Design e experiencia
+
+- Identidade Seven Bites com paleta bordeaux, graphite, cream, amber e green.
+- Tema global centralizado em `src/styles/themes/standard.js`.
+- Componentes responsivos e com dimensoes estaveis.
+- Foco visivel e melhor contraste em controles principais.
+- Layout mobile-first nas telas publicas.
+- Tabelas administrativas com rolagem horizontal controlada em telas menores.
+- Menor dependencia dos SVGs legados pesados como fundos principais.
 
 ## Estrutura do projeto
 
 ```txt
 seven-bites-interface
-├── public
-├── src
-│   ├── assets
-│   ├── components
-│   │   ├── Button
-│   │   ├── CardProduct
-│   │   ├── CartButton
-│   │   ├── CartItems
-│   │   ├── CartResume
-│   │   ├── CategoriesCarousel
-│   │   ├── Footer
-│   │   ├── Header
-│   │   ├── OffersCarousel
-│   │   ├── SideNavAdmin
-│   │   ├── Stripe
-│   │   └── Table
-│   ├── config
-│   ├── containers
-│   │   ├── Admin
-│   │   │   ├── EditProduct
-│   │   │   ├── NewProduct
-│   │   │   ├── Orders
-│   │   │   └── Products
-│   │   ├── Cart
-│   │   ├── Checkout
-│   │   ├── CompletePayment
-│   │   ├── Home
-│   │   ├── Login
-│   │   ├── Menu
-│   │   └── Register
-│   ├── hooks
-│   ├── layouts
-│   │   ├── AdminLayout
-│   │   └── UserLayout
-│   ├── routes
-│   ├── services
-│   ├── styles
-│   ├── utils
-│   └── main.jsx
-├── .gitignore
-├── biome.json
-├── index.html
-├── package-lock.json
-├── package.json
-├── README.md
-└── vite.config.js
+|-- .github
+|   |-- dependabot.yml
+|   `-- workflows
+|       `-- ci.yml
+|-- docs
+|   |-- architecture.md
+|   `-- development.md
+|-- public
+|-- src
+|   |-- assets
+|   |-- components
+|   |-- config
+|   |-- containers
+|   |-- hooks
+|   |-- layouts
+|   |-- routes
+|   |-- services
+|   |-- styles
+|   `-- utils
+|-- .env.example
+|-- index.html
+|-- package-lock.json
+|-- package.json
+|-- vercel.json
+|-- vite.config.js
+`-- README.md
 ```
 
-## Módulos principais
+## Autor
 
-### Autenticação
-
-Responsável pelo login, cadastro, persistência do usuário autenticado e controle de acesso entre usuário comum e administrador.
-
-### Catálogo
-
-Responsável pela exibição dos produtos, categorias, ofertas e filtros do cardápio.
-
-### Carrinho
-
-Responsável por adicionar produtos, remover itens, alterar quantidades e calcular os valores do pedido.
-
-### Checkout
-
-Responsável pela integração com Stripe, finalização da compra e confirmação do pagamento.
-
-### Painel administrativo
-
-Responsável pelo gerenciamento de produtos, cadastro de novos itens, edição de produtos e acompanhamento dos pedidos.
-
-### Pedidos
-
-Responsável pela listagem dos pedidos realizados e atualização do status de cada pedido dentro do painel administrativo.
-
-## Padrões do projeto
-
-O projeto segue uma estrutura organizada por responsabilidades, separando:
-
-- Components
-- Containers
-- Hooks
-- Layouts
-- Routes
-- Services
-- Styles
-- Utils
-
-A interface utiliza tema global com Styled Components, centralizando cores, fontes e estilos reutilizáveis para manter consistência visual em toda a aplicação.
-
-## Design
-
-A aplicação utiliza uma identidade visual moderna, com:
-
-- Tema escuro nas telas de autenticação
-- Paleta roxa personalizada
-- Layout administrativo com sidebar
-- Cards de produtos
-- Carrosséis visuais
-- Feedbacks com Toasts
-- Componentização reutilizável
-- Padronização de cores via Theme Provider
+André Vinícius Branches Cunha
