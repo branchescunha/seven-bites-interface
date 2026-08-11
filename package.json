@@ -22,7 +22,7 @@
     "@stripe/stripe-js": "^9.6.0",
     "axios": "^1.16.0",
     "prop-types": "^15.8.1",
-    "react": "^19.2.5",
+    "react": "^19.2.8",
     "react-dom": "^19.2.5",
     "react-hook-form": "^7.75.0",
     "react-multi-carousel": "^2.8.6",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.14",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "vite": "^8.0.10"
