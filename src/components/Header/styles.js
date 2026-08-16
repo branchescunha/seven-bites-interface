@@ -143,7 +143,22 @@ export const LinkContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  min-height: 32px;
   color: ${(props) => props.theme.white};
+`;
+
+export const CartBadge = styled.span`
+  display: grid;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  place-items: center;
+  border-radius: 999px;
+  background-color: ${(props) => props.theme.amber};
+  color: ${(props) => props.theme.graphite};
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
 `;
 
 export const Logout = styled.button`

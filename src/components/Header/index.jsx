@@ -1,9 +1,11 @@
 import { ShoppingCart, UserCircle } from "@phosphor-icons/react";
 import { useNavigate, useResolvedPath } from "react-router-dom";
 
+import { useCart } from "../../hooks/CartContext";
 import { useUser } from "../../hooks/UserContext";
 import {
   Brand,
+  CartBadge,
   Container,
   Content,
   HeaderLink,
@@ -16,9 +18,14 @@ import {
 
 export function Header() {
   const navigate = useNavigate();
+  const { cartProducts } = useCart();
   const { logout, userInfo } = useUser();
 
   const { pathname } = useResolvedPath();
+  const cartItemsCount = cartProducts.reduce(
+    (total, product) => total + product.quantity,
+    0,
+  );
 
   function logoutUser() {
     logout();
@@ -56,6 +63,11 @@ export function Header() {
           <LinkContainer>
             <ShoppingCart size={24} />
             <HeaderLink to="/carrinho">Carrinho</HeaderLink>
+            {cartItemsCount > 0 && (
+              <CartBadge aria-label={`${cartItemsCount} itens no carrinho`}>
+                {cartItemsCount}
+              </CartBadge>
+            )}
           </LinkContainer>
         </Options>
       </Content>

@@ -4,7 +4,7 @@ import { ContainerButton } from "./styles";
 export function CartButton({ ...props }) {
   return (
     <div>
-      <ContainerButton {...props}>
+      <ContainerButton type="button" {...props}>
         <img src={Cart} alt="carrinho-de-compras" />
       </ContainerButton>
     </div>
