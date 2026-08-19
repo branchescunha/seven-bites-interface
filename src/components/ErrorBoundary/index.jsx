@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+﻿import PropTypes from "prop-types";
 import { Component } from "react";
 
 import { Actions, Container } from "./styles";
@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component {
       return (
         <Container role="alert">
           <h1>Algo deu errado.</h1>
-          <p>Atualize a pagina ou volte para o inicio.</p>
+          <p>Atualize a página ou volte para o início.</p>
           <Actions>
             <button type="button" onClick={this.handleReload}>
               Atualizar

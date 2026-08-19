@@ -1,7 +1,7 @@
-import { Navigate, Outlet } from "react-router-dom";
+﻿import { Navigate, Outlet } from "react-router-dom";
 
 import { SideNavAdmin } from "../../components/SideNavAdmin";
-import { Container } from "./styles";
+import { Container, Content, Main, Topbar } from "./styles";
 
 export function AdminLayout() {
   function getIsAdmin() {
@@ -19,11 +19,18 @@ export function AdminLayout() {
   return isAdmin ? (
     <Container>
       <SideNavAdmin />
-      <main>
-        <section>
+      <Main>
+        <Topbar>
+          <div>
+            <span>Painel administrativo</span>
+            <strong>Operação Seven Bites</strong>
+          </div>
+          <p>Gestão de pedidos e catálogo</p>
+        </Topbar>
+        <Content>
           <Outlet />
-        </section>
-      </main>
+        </Content>
+      </Main>
     </Container>
   ) : (
     <Navigate to="/login" replace />
