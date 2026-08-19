@@ -21,6 +21,7 @@ export function SideNavAdmin() {
             key={link.id}
             to={link.path}
             $isActive={pathname === link.path}
+            aria-current={pathname === link.path ? "page" : undefined}
           >
             {link.icon}
             <span>{link.label}</span>
@@ -28,7 +29,7 @@ export function SideNavAdmin() {
         ))}
       </NavLinkContainer>
       <Footer>
-        <NavLink to="/login" onClick={logout}>
+        <NavLink to="/login" onClick={logout} aria-label="Sair do admin">
           <SignOut />
           <span>Sair</span>
         </NavLink>

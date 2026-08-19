@@ -1,63 +1,36 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Image } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+﻿import { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 
+import { AdminPageHeader, FeedbackState } from "../../../components";
 import { api } from "../../../services/api";
-import {
-  Container,
-  ContainerCheckbox,
-  ErrorMessage,
-  Form,
-  Input,
-  InputGroup,
-  Label,
-  LabelUpload,
-  Select,
-  SubmitButton,
-} from "./styles";
-
-const schema = yup.object({
-  name: yup.string().required("Digite o nome do produto"),
-  price: yup
-    .number()
-    .positive()
-    .required("Digite o preço do produto")
-    .typeError("Digite o preço do produto"),
-  category: yup.object().required("Escolha uma categoria"),
-  offer: yup.bool(),
-});
+import { AdminProductForm } from "../AdminProductForm";
+import { Container } from "./styles";
 
 export function EditProduct() {
-  const [filename, setFilename] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
-
   const { state } = useLocation();
   const product = state?.product;
 
   useEffect(() => {
     async function loadCategories() {
-      const { data } = await api.get("/categories");
+      try {
+        const { data } = await api.get("/categories");
 
-      setCategories(data);
+        setCategories(Array.isArray(data) ? data : []);
+      } catch (err) {
+        setError(err.publicMessage || "Não foi possível carregar categorias.");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     loadCategories();
   }, []);
-
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
 
   if (!product) {
     return <Navigate to="/admin/produtos" replace />;
@@ -76,92 +49,36 @@ export function EditProduct() {
 
     await toast.promise(api.put(`/products/${product.id}`, productFormData), {
       pending: "Editando o produto...",
-      success: "Produto editado com sucesso",
-      error: "Falha ao editar o produto! Tente novamente",
+      success: "Produto editado com sucesso.",
+      error: "Falha ao editar o produto. Tente novamente.",
     });
 
     setTimeout(() => {
       navigate("/admin/produtos");
-    }, 2000);
+    }, 1600);
   };
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <InputGroup>
-          <Label>Nome</Label>
-          <Input
-            type="text"
-            {...register("name")}
-            defaultValue={product.name}
-          />
-          <ErrorMessage>{errors?.name?.message}</ErrorMessage>
-        </InputGroup>
+      <AdminPageHeader
+        breadcrumb="Admin / Produtos / Editar"
+        description="Atualize os dados do item sem alterar o fluxo atual de catálogo."
+        title={`Editar ${product.name}`}
+      />
 
-        <InputGroup>
-          <Label>Preço</Label>
-          <Input
-            type="number"
-            {...register("price")}
-            defaultValue={product.price / 100}
-          />
-          <ErrorMessage>{errors?.price?.message}</ErrorMessage>
-        </InputGroup>
-
-        <InputGroup>
-          <LabelUpload>
-            <Image />
-            <input
-              type="file"
-              {...register("file")}
-              accept="image/png, image/jpeg"
-              onChange={(value) => {
-                setFilename(value?.target?.files[0]?.name);
-                register("file").onChange(value);
-              }}
-            />
-
-            {filename || "Upload do Produto"}
-          </LabelUpload>
-
-          <ErrorMessage>{errors?.file?.message}</ErrorMessage>
-        </InputGroup>
-
-        <InputGroup>
-          <Label>Categoria</Label>
-          <Controller
-            name="category"
-            control={control}
-            defaultValue={product.category}
-            render={({ field }) => (
-              <Select
-                {...field}
-                options={categories}
-                getOptionLabel={(category) => category.name}
-                getOptionValue={(category) => category.id}
-                placeholder="Categorias"
-                menuPortalTarget={document.body}
-                defaultValue={product.category}
-              />
-            )}
-          />
-
-          <ErrorMessage>{errors?.category?.message}</ErrorMessage>
-        </InputGroup>
-
-        <InputGroup>
-          <ContainerCheckbox>
-            <input
-              type="checkbox"
-              defaultChecked={product.offer}
-              {...register("offer")}
-            />
-            <Label>Produto em Oferta?</Label>
-          </ContainerCheckbox>
-        </InputGroup>
-
-        <SubmitButton>Editar Produto</SubmitButton>
-      </Form>
+      {isLoading && <FeedbackState message="Carregando categorias..." />}
+      {!isLoading && error && (
+        <FeedbackState message={error} title="Categorias indisponíveis" />
+      )}
+      {!isLoading && !error && (
+        <AdminProductForm
+          categories={categories}
+          mode="edit"
+          onSubmit={onSubmit}
+          product={product}
+          submitLabel="Salvar alteracoes"
+        />
+      )}
     </Container>
   );
 }

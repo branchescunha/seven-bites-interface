@@ -1,3 +1,4 @@
+export * from "./Admin";
 export * from "./Button";
 export * from "./CardProduct";
 export * from "./CartButton";

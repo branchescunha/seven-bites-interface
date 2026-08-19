@@ -4,12 +4,33 @@ export const ORDER_STATUS = {
   legacyPending: "Pedido realizado",
   preparing: "Em Preparação",
   ready: "Pedido Pronto",
-  onTheWay: "Pedido à Caminho",
+  onTheWay: "Pedido a Caminho",
   delivered: "Entregue",
 };
 
 export const normalizeOrderStatus = (status) =>
   status === ORDER_STATUS.legacyPending ? ORDER_STATUS.pending : status;
+
+export const getStatusTone = (status) => {
+  const normalizedStatus = normalizeOrderStatus(status);
+
+  if (normalizedStatus === ORDER_STATUS.delivered) {
+    return "green";
+  }
+
+  if (
+    normalizedStatus === ORDER_STATUS.ready ||
+    normalizedStatus === ORDER_STATUS.onTheWay
+  ) {
+    return "amber";
+  }
+
+  if (normalizedStatus === ORDER_STATUS.preparing) {
+    return "brand";
+  }
+
+  return "neutral";
+};
 
 export const orderStatusOptions = [
   {
