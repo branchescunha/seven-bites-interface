@@ -1,4 +1,4 @@
-import { Elements } from "@stripe/react-stripe-js";
+﻿import { Elements } from "@stripe/react-stripe-js";
 import { useLocation } from "react-router-dom";
 
 import { CheckoutForm, FeedbackState } from "../../components";
@@ -12,13 +12,26 @@ export function Checkout() {
     return (
       <FeedbackState
         message="Volte ao carrinho e tente iniciar o pagamento novamente."
-        title="Pagamento indisponivel"
+        title="Pagamento indisponível"
       />
     );
   }
 
+  const appearance = {
+    theme: "stripe",
+    variables: {
+      borderRadius: "8px",
+      colorBackground: "#ffffff",
+      colorDanger: "#b3261e",
+      colorPrimary: "#8f1d2c",
+      colorText: "#202124",
+      fontFamily: "Poppins, system-ui, sans-serif",
+      spacingUnit: "5px",
+    },
+  };
+
   return (
-    <Elements stripe={stripePromise} options={{ clientSecret }}>
+    <Elements stripe={stripePromise} options={{ appearance, clientSecret }}>
       <CheckoutForm />
     </Elements>
   );

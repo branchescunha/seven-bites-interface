@@ -1,8 +1,17 @@
-import { Elements, useStripe } from "@stripe/react-stripe-js";
+﻿import { Elements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import "../../components/Stripe/styles.css";
 import stripePromise from "../../config/stripeConfig";
+import {
+  Actions,
+  DetailCard,
+  Page,
+  StatusCard,
+  StatusIcon,
+  StatusLabel,
+  StatusMessage,
+} from "./styles";
 
 const SuccessIcon = (
   // biome-ignore lint/a11y/noSvgWithoutTitle: status icon is paired with adjacent text
@@ -70,32 +79,52 @@ const InfoIcon = (
 
 const STATUS_CONTENT_MAP = {
   succeeded: {
+    label: "Pedido confirmado",
     text: "Pagamento efetuado com sucesso",
-    iconColor: "#30B130",
+    message:
+      "Seu pagamento foi aprovado em modo teste e o pedido foi registrado.",
+    iconColor: "#2f7d4f",
     icon: SuccessIcon,
-    buttonText: "Voltar para a loja",
-    url: "/",
+    primaryText: "Voltar ao cardápio",
+    primaryUrl: "/cardapio",
+    secondaryText: "Ir para Home",
+    secondaryUrl: "/",
   },
   processing: {
-    text: "Pagamento em processamento",
-    iconColor: "#6D6E78",
+    label: "Pagamento em processamento",
+    text: "Estamos aguardando a confirmação",
+    message:
+      "A Stripe ainda está processando o pagamento. Você pode voltar ao cardápio enquanto o status é atualizado.",
+    iconColor: "#c88a2d",
     icon: InfoIcon,
-    buttonText: "Voltar para a loja",
-    url: "/",
+    primaryText: "Voltar ao cardápio",
+    primaryUrl: "/cardapio",
+    secondaryText: "Ir para Home",
+    secondaryUrl: "/",
   },
   requires_payment_method: {
-    text: "Falha no pagamento, tente novamente",
-    iconColor: "#DF1B41",
+    label: "Pagamento recusado",
+    text: "Não foi possível concluir o pagamento",
+    message:
+      "Revise seu carrinho e tente novamente com outro metodo de pagamento de teste.",
+    iconColor: "#b3261e",
     icon: ErrorIcon,
-    buttonText: "Tentar novamente",
-    url: "/carrinho",
+    primaryText: "Tentar novamente",
+    primaryUrl: "/carrinho",
+    secondaryText: "Ir para Home",
+    secondaryUrl: "/",
   },
   default: {
-    text: "Algo deu errado, tente novamente",
-    iconColor: "#DF1B41",
+    label: "Status indisponível",
+    text: "Não conseguimos confirmar o pagamento",
+    message:
+      "Volte ao carrinho e tente iniciar o checkout novamente se o problema continuar.",
+    iconColor: "#b3261e",
     icon: ErrorIcon,
-    buttonText: "Tentar novamente",
-    url: "/carrinho",
+    primaryText: "Tentar novamente",
+    primaryUrl: "/carrinho",
+    secondaryText: "Ir para Home",
+    secondaryUrl: "/",
   },
 };
 
@@ -131,72 +160,40 @@ function CompletePaymentContent() {
   }, [stripe]);
 
   return (
-    <div className="container">
-      <div id="payment-status">
-        <div
+    <Page>
+      <StatusCard id="payment-status">
+        <StatusIcon
+          $iconColor={statusContent.iconColor}
+          aria-hidden="true"
           id="status-icon"
-          style={{ backgroundColor: statusContent.iconColor }}
         >
           {statusContent.icon}
-        </div>
-        <h2 id="status-text" className="status-title">
-          {statusContent.text}
-        </h2>
+        </StatusIcon>
+        <StatusLabel>{statusContent.label}</StatusLabel>
+        <h1 id="status-text">{statusContent.text}</h1>
+        <StatusMessage>{statusContent.message}</StatusMessage>
         {intentId && (
-          <div id="details-table">
-            <table>
-              <tbody>
-                <tr>
-                  <td className="TableLabel">id</td>
-                  <td id="intent-id" className="TableContent">
-                    {intentId}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="TableLabel">status</td>
-                  <td id="intent-status" className="TableContent">
-                    {status}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <DetailCard aria-label="Detalhes do pagamento">
+            <p>
+              <span>PaymentIntent</span>
+              <strong id="intent-id">{intentId}</strong>
+            </p>
+            <p>
+              <span>Status</span>
+              <strong id="intent-status">{status}</strong>
+            </p>
+          </DetailCard>
         )}
-        {intentId && (
-          <a
-            href={`https://dashboard.stripe.com/payments/${intentId}`}
-            id="view-details"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Ver detalhes
-            {/** biome-ignore lint/a11y/noSvgWithoutTitle: external link icon is decorative */}
-            <svg
-              width="15"
-              height="14"
-              viewBox="0 0 15 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ paddingLeft: "5px" }}
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M3.125 3.49998C2.64175 3.49998 2.25 4.37498V11.375C2.25 11.8582 2"
-                fill="#0055DE"
-              />
-              <path
-                d="M8.66672 0C8.18347 0 7.79172 0.391751 7.79172 0.875C7.79172 1.35825 8.18347 1."
-                fill="#0055DE"
-              />
-            </svg>
-          </a>
-        )}
-        <a id="retry-button" href={statusContent.url}>
-          {statusContent.buttonText}
-        </a>
-      </div>
-    </div>
+        <Actions>
+          <Link id="retry-button" to={statusContent.primaryUrl}>
+            {statusContent.primaryText}
+          </Link>
+          <Link to={statusContent.secondaryUrl}>
+            {statusContent.secondaryText}
+          </Link>
+        </Actions>
+      </StatusCard>
+    </Page>
   );
 }
 

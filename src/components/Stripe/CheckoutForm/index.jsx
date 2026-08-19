@@ -9,7 +9,25 @@ import { toast } from "react-toastify";
 
 import { useCart } from "../../../hooks/CartContext";
 import { api } from "../../../services/api";
-import "../styles.css";
+import { formatPrice } from "../../../utils/formatPrice";
+import {
+  CheckoutGrid,
+  CheckoutHeader,
+  ErrorMessage,
+  FormCard,
+  OrderList,
+  Page,
+  PaymentAside,
+  PaymentForm,
+  PrimaryButton,
+  SecureNote,
+  SummaryCard,
+  SummaryLine,
+  SummaryTotal,
+  TestBadge,
+} from "./styles";
+
+const DELIVERY_TAX = 500;
 
 export function CheckoutForm() {
   const { cartProducts, clearCart } = useCart();
@@ -22,6 +40,11 @@ export function CheckoutForm() {
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const subtotal = cartProducts.reduce((acc, product) => {
+    return acc + product.price * product.quantity;
+  }, 0);
+  const deliveryTax = cartProducts.length > 0 ? DELIVERY_TAX : 0;
+  const total = subtotal + deliveryTax;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,40 +117,101 @@ export function CheckoutForm() {
   };
 
   return (
-    <div className="container">
-      <form id="payment-form" onSubmit={handleSubmit}>
-        <PaymentElement id="payment-element" options={paymentElementOptions} />
-        <button
-          type="submit"
-          disabled={isLoading || !stripe || !elements}
-          id="submit"
-          className="button"
-        >
-          <span id="button-text">
-            {isLoading ? (
-              <div className="spinner" id="spinner"></div>
-            ) : (
-              "Pagar agora"
-            )}
-          </span>
-        </button>
-        {message && <div id="payment-message">{message}</div>}
-      </form>
-
-      <div id="dpm-annotation">
+    <Page>
+      <CheckoutHeader>
+        <span>Checkout seguro</span>
+        <h1>Revise e finalize seu pagamento.</h1>
         <p>
-          Os metodos de pagamento sao disponibilizados de acordo com a sua
-          regiao.&nbsp;
-          <a
-            href={dpmCheckerLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            id="dpm-integration-checker"
-          >
-            Ver metodos de pagamento
-          </a>
+          A cobranca e confirmada pelo servidor com os itens do carrinho e a
+          taxa de entrega ja validada.
         </p>
-      </div>
-    </div>
+      </CheckoutHeader>
+
+      <CheckoutGrid>
+        <FormCard>
+          <div>
+            <TestBadge>Ambiente de teste</TestBadge>
+            <h2>Dados de pagamento</h2>
+            <p>
+              Use os dados de teste da Stripe. Nenhum cartao real deve ser
+              utilizado neste projeto demo.
+            </p>
+          </div>
+
+          <PaymentForm id="payment-form" onSubmit={handleSubmit}>
+            <PaymentElement
+              id="payment-element"
+              options={paymentElementOptions}
+            />
+            {message && <ErrorMessage role="alert">{message}</ErrorMessage>}
+            <PrimaryButton
+              disabled={isLoading || !stripe || !elements}
+              id="submit"
+              type="submit"
+            >
+              {isLoading ? "Processando pagamento..." : "Pagar agora"}
+            </PrimaryButton>
+          </PaymentForm>
+
+          <SecureNote>
+            Pagamento processado pela Stripe. O pedido so e criado apos a
+            confirmação do PaymentIntent.
+          </SecureNote>
+        </FormCard>
+
+        <PaymentAside>
+          <SummaryCard aria-label="Resumo do pedido">
+            <header>
+              <span>Resumo</span>
+              <h2>Seu pedido</h2>
+            </header>
+
+            <OrderList>
+              {cartProducts.map((product) => (
+                <li key={product.id}>
+                  <div>
+                    <strong>{product.name}</strong>
+                    <span>
+                      {product.quantity} x {formatPrice(product.price)}
+                    </span>
+                  </div>
+                  <strong>
+                    {formatPrice(product.price * product.quantity)}
+                  </strong>
+                </li>
+              ))}
+            </OrderList>
+
+            <SummaryLine>
+              <span>Subtotal</span>
+              <strong>{formatPrice(subtotal)}</strong>
+            </SummaryLine>
+            <SummaryLine>
+              <span>Taxa de entrega</span>
+              <strong>{formatPrice(deliveryTax)}</strong>
+            </SummaryLine>
+            <SummaryTotal>
+              <span>Total</span>
+              <strong>{formatPrice(total)}</strong>
+            </SummaryTotal>
+          </SummaryCard>
+
+          {dpmCheckerLink && (
+            <SecureNote>
+              Os metodos de pagamento sao disponibilizados de acordo com a sua
+              regiao.{" "}
+              <a
+                href={dpmCheckerLink}
+                id="dpm-integration-checker"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Ver metodos disponiveis
+              </a>
+            </SecureNote>
+          )}
+        </PaymentAside>
+      </CheckoutGrid>
+    </Page>
   );
 }

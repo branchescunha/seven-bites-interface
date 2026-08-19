@@ -1,4 +1,5 @@
-import { yupResolver } from "@hookform/resolvers/yup";
+﻿import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,31 +14,34 @@ import {
   InputContainer,
   LeftContainer,
   Link,
+  PasswordField,
   RightContainer,
   Title,
+  TrustList,
 } from "./styles";
 
 export function Login() {
   const navigate = useNavigate();
   const { putUserData } = useUser();
+  const [showPassword, setShowPassword] = useState(false);
 
   const schema = yup
     .object({
       email: yup
         .string()
-        .email("Digite um e-mail valido")
-        .required("O e-mail e obrigatorio"),
+        .email("Digite um e-mail valido.")
+        .required("O e-mail e obrigatorio."),
       password: yup
         .string()
-        .min(6, "A senha deve ter no minimo 6 caracteres")
-        .required("Digite uma senha"),
+        .min(6, "A senha deve ter no mínimo 6 caracteres.")
+        .required("Digite sua senha."),
     })
     .required();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -72,8 +76,16 @@ export function Login() {
     <Container>
       <LeftContainer>
         <span>Seven Bites</span>
-        <h1>Entre para pedir sua proxima mordida.</h1>
-        <p>Cardapio online, carrinho persistente e pagamento seguro.</p>
+        <h1>Entre e finalize seu pedido com segurança.</h1>
+        <p>
+          Seu carrinho fica salvo, o pagamento acontece em ambiente seguro e o
+          pedido segue direto para preparo.
+        </p>
+        <TrustList aria-label="Benefícios da conta Seven Bites">
+          <li>Carrinho persistente</li>
+          <li>Checkout protegido</li>
+          <li>Histórico de pedidos</li>
+        </TrustList>
       </LeftContainer>
       <RightContainer>
         <Title>
@@ -81,21 +93,43 @@ export function Login() {
         </Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
-            <label htmlFor="email">Email</label>
-            <input id="email" type="email" {...register("email")} />
+            <label htmlFor="email">E-mail</label>
+            <input
+              autoComplete="email"
+              id="email"
+              inputMode="email"
+              type="email"
+              {...register("email")}
+            />
             <p>{errors?.email?.message}</p>
           </InputContainer>
 
           <InputContainer>
             <label htmlFor="password">Senha</label>
-            <input id="password" type="password" {...register("password")} />
+            <PasswordField>
+              <input
+                autoComplete="current-password"
+                id="password"
+                type={showPassword ? "text" : "password"}
+                {...register("password")}
+              />
+              <button
+                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                type="button"
+                onClick={() => setShowPassword((current) => !current)}
+              >
+                {showPassword ? "Ocultar" : "Mostrar"}
+              </button>
+            </PasswordField>
             <p>{errors?.password?.message}</p>
           </InputContainer>
 
-          <Button type="submit">Entrar</Button>
+          <Button disabled={isSubmitting} type="submit">
+            {isSubmitting ? "Entrando..." : "Entrar"}
+          </Button>
         </Form>
         <p>
-          Ainda nao possui conta? <Link to="/cadastro">Criar conta</Link>
+          Ainda não possui conta? <Link to="/cadastro">Criar conta</Link>
         </p>
       </RightContainer>
     </Container>
