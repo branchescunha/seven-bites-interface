@@ -1,74 +1,102 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.white};
+  position: sticky;
+  top: calc(${(props) => props.theme.layout.headerHeight} + ${(props) => props.theme.spacing[6]});
+  display: grid;
+  gap: ${(props) => props.theme.spacing[4]};
+  padding: ${(props) => props.theme.spacing[6]};
   border: 1px solid ${(props) => props.theme.border};
-  border-radius: 8px;
+  border-radius: ${(props) => props.theme.radii.md};
+  background-color: ${(props) => props.theme.paper};
+  box-shadow: ${(props) => props.theme.shadows.medium};
+
+  @media (max-width: 920px) {
+    position: static;
+  }
+`;
+
+export const ResumeTitle = styled.header`
   display: flex;
   flex-direction: column;
+  gap: ${(props) => props.theme.spacing[2]};
+  padding-bottom: ${(props) => props.theme.spacing[4]};
+  border-bottom: 1px solid ${(props) => props.theme.border};
+
+  span {
+    color: ${(props) => props.theme.amber};
+    font-size: ${(props) => props.theme.typography.label.size};
+    font-weight: ${(props) => props.theme.typography.label.weight};
+    text-transform: uppercase;
+  }
+
+  h2 {
+    color: ${(props) => props.theme.graphite};
+    font-size: ${(props) => props.theme.typography.h3.desktop};
+    font-weight: ${(props) => props.theme.typography.h3.weight};
+  }
+`;
+
+export const ResumeLine = styled.p`
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
-  overflow: hidden;
-  box-shadow: 0 18px 36px rgba(32, 33, 36, 0.08);
+  gap: ${(props) => props.theme.spacing[4]};
+  color: ${(props) => props.theme.muted};
+  font-size: ${(props) => props.theme.typography.body.mobile};
 
-  * {
-    color: ${(props) => props.theme.darkGray};
-    font-weight: 500;
+  strong {
+    color: ${(props) => props.theme.graphite};
+    font-weight: 800;
+  }
+`;
+
+export const SummaryFooter = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${(props) => props.theme.spacing[4]};
+  margin-top: ${(props) => props.theme.spacing[2]};
+  padding-top: ${(props) => props.theme.spacing[5]};
+  border-top: 1px solid ${(props) => props.theme.border};
+
+  span {
+    color: ${(props) => props.theme.graphite};
+    font-size: 18px;
+    font-weight: 800;
   }
 
-  .container-top {
-    display: grid;
-    grid-gap: 10px 30%;
-    grid-template-areas:
-      "title title"
-      "items items-price"
-      "delivery-tax delivery-tax-price";
-
-    .title {
-      grid-area: title;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      background-color: ${(props) => props.theme.graphite};
-      color: ${(props) => props.theme.white};
-      width: 100%;
-      padding: 15px;
-      text-align: center;
-    }
-
-    .items {
-      grid-area: items;
-      padding-left: 20px;
-    }
-
-    .items-price {
-      grid-area: items-price;
-      padding-right: 20px;
-    }
-
-    .delivery-tax {
-      grid-area: delivery-tax;
-      padding-left: 20px;
-    }
-
-    .delivery-tax-price {
-      grid-area: delivery-tax-price;
-      padding-right: 20px;
-    }
+  strong {
+    color: ${(props) => props.theme.brand};
+    font-size: 26px;
+    font-weight: 800;
   }
+`;
 
-  .container-bottom {
-    display: flex;
-    justify-content: space-between;
-    font-size: 20px;
-    font-weight: 700;
-    margin-top: 24px;
-    padding: 20px;
-    border-top: 1px solid ${(props) => props.theme.border};
+export const Actions = styled.div`
+  display: grid;
+  gap: ${(props) => props.theme.spacing[3]};
+  margin-top: ${(props) => props.theme.spacing[4]};
 
-    * {
-      font-weight: 700;
-      color: ${(props) => props.theme.graphite};
+  a {
+    min-height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid ${(props) => props.theme.border};
+    border-radius: ${(props) => props.theme.radii.pill};
+    background: ${(props) => props.theme.paper};
+    color: ${(props) => props.theme.graphite};
+    font-size: ${(props) => props.theme.typography.button.size};
+    font-weight: ${(props) => props.theme.typography.button.weight};
+    text-decoration: none;
+    transition:
+      border-color ${(props) => props.theme.transitions.base},
+      transform ${(props) => props.theme.transitions.fast};
+
+    &:hover {
+      border-color: ${(props) => props.theme.amber};
+      transform: translateY(-1px);
     }
   }
 `;

@@ -1,14 +1,21 @@
 import { CartItems, CartResume } from "../../components";
-import { Banner, Container, Content, Title } from "./styles";
+import { Banner, Container, Content, PageHeader } from "./styles";
 
 export function Cart() {
   return (
     <Container>
       <Banner>
-        <strong>Seven Bites</strong>
-        <span>Revise seu pedido antes do pagamento.</span>
+        <span>Seu carrinho</span>
+        <strong>Revise o pedido antes do pagamento.</strong>
+        <p>
+          Confira quantidades, subtotais e total antes de seguir para o
+          checkout.
+        </p>
       </Banner>
-      <Title>Seu pedido</Title>
+      <PageHeader>
+        <span>Pedido online</span>
+        <h1>Itens selecionados</h1>
+      </PageHeader>
       <Content>
         <CartItems />
         <CartResume />

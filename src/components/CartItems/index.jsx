@@ -1,13 +1,21 @@
-import TrashIcon from "../../assets/trash.svg";
+﻿import { Minus, Plus, Trash } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
+
 import { useCart } from "../../hooks/CartContext";
 import { formatPrice } from "../../utils/formatPrice";
-import { Table } from "../index";
 import {
   ButtonGroup,
   EmptyCart,
+  ItemDetails,
+  ItemHeader,
+  ItemMeta,
+  ItemRow,
+  ItemsList,
   ProductImage,
+  ProductInfo,
   ProductTotalPrice,
-  TrashImage,
+  QuantityValue,
+  RemoveButton,
 } from "./styles";
 
 export function CartItems() {
@@ -15,61 +23,73 @@ export function CartItems() {
     useCart();
 
   return (
-    <Table.Root>
-      <Table.Header>
-        <Table.Tr>
-          <Table.Th></Table.Th>
-          <Table.Th>Itens</Table.Th>
-          <Table.Th>Preco</Table.Th>
-          <Table.Th>Quantidade</Table.Th>
-          <Table.Th>Total</Table.Th>
-          <Table.Th></Table.Th>
-        </Table.Tr>
-      </Table.Header>
-      <Table.Body>
-        {cartProducts?.length ? (
-          cartProducts.map((product) => (
-            <Table.Tr key={product.id}>
-              <Table.Td>
-                <ProductImage src={product.url} alt={product.name} />
-              </Table.Td>
-              <Table.Td>{product.name}</Table.Td>
-              <Table.Td>{product.currencyValue}</Table.Td>
-              <Table.Td>
-                <ButtonGroup>
+    <ItemsList aria-label="Itens do carrinho">
+      {cartProducts?.length ? (
+        cartProducts.map((product) => (
+          <ItemRow key={product.id}>
+            <ProductImage src={product.url} alt={product.name} />
+            <ProductInfo>
+              <ItemHeader>
+                <div>
+                  <ItemMeta>{product.category?.name || "Seven Bites"}</ItemMeta>
+                  <h2>{product.name}</h2>
+                </div>
+                <RemoveButton
+                  type="button"
+                  aria-label={`Remover ${product.name} do carrinho`}
+                  onClick={() => deleteProduct(product.id)}
+                >
+                  <Trash size={18} weight="bold" />
+                </RemoveButton>
+              </ItemHeader>
+
+              <ItemDetails>
+                <div>
+                  <span>Preço unitário</span>
+                  <strong>{product.currencyValue}</strong>
+                </div>
+
+                <ButtonGroup aria-label={`Quantidade de ${product.name}`}>
                   <button
                     type="button"
+                    aria-label={`Reduzir quantidade de ${product.name}`}
                     onClick={() => decreaseProduct(product.id)}
                   >
-                    -
+                    <Minus size={16} weight="bold" />
                   </button>
-                  {product.quantity}
+                  <QuantityValue aria-live="polite">
+                    {product.quantity}
+                  </QuantityValue>
                   <button
                     type="button"
+                    aria-label={`Aumentar quantidade de ${product.name}`}
                     onClick={() => increaseProduct(product.id)}
                   >
-                    +
+                    <Plus size={16} weight="bold" />
                   </button>
                 </ButtonGroup>
-              </Table.Td>
-              <Table.Td>
-                <ProductTotalPrice>
-                  {formatPrice(product.quantity * product.price)}
-                </ProductTotalPrice>
-              </Table.Td>
-              <Table.Td>
-                <TrashImage
-                  src={TrashIcon}
-                  alt="Remover item"
-                  onClick={() => deleteProduct(product.id)}
-                />
-              </Table.Td>
-            </Table.Tr>
-          ))
-        ) : (
-          <EmptyCart>Carrinho vazio</EmptyCart>
-        )}
-      </Table.Body>
-    </Table.Root>
+
+                <div>
+                  <span>Subtotal</span>
+                  <ProductTotalPrice>
+                    {formatPrice(product.quantity * product.price)}
+                  </ProductTotalPrice>
+                </div>
+              </ItemDetails>
+            </ProductInfo>
+          </ItemRow>
+        ))
+      ) : (
+        <EmptyCart>
+          <span>Carrinho vazio</span>
+          <h2>Seu pedido ainda não começou.</h2>
+          <p>
+            Escolha um item do cardápio e volte para revisar quantidades antes
+            do pagamento.
+          </p>
+          <Link to="/cardapio">Ver cardápio</Link>
+        </EmptyCart>
+      )}
+    </ItemsList>
   );
 }

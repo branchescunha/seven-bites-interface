@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import CarouselModule from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -30,7 +30,7 @@ export function OffersCarousel() {
 
         setOffers(onlyOffers);
       } catch (err) {
-        setError(err.publicMessage || "Nao foi possivel carregar ofertas.");
+        setError(err.publicMessage || "Não foi possível carregar ofertas.");
       } finally {
         setIsLoading(false);
       }
@@ -64,10 +64,10 @@ export function OffersCarousel() {
 
       {isLoading && <FeedbackState message="Carregando ofertas..." />}
       {!isLoading && error && (
-        <FeedbackState message={error} title="Ofertas indisponiveis" />
+        <FeedbackState message={error} title="Ofertas indisponíveis" />
       )}
       {!isLoading && !error && offers.length === 0 && (
-        <FeedbackState message="Nenhuma oferta disponivel." />
+        <FeedbackState message="Nenhuma oferta disponível." />
       )}
 
       {!isLoading && !error && offers.length > 0 && (

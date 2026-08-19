@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import CarouselModule from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -22,7 +22,7 @@ export function CategoriesCarousel() {
 
         setCategories(Array.isArray(data) ? data : []);
       } catch (err) {
-        setError(err.publicMessage || "Nao foi possivel carregar categorias.");
+        setError(err.publicMessage || "Não foi possível carregar categorias.");
       } finally {
         setIsLoading(false);
       }
@@ -56,7 +56,7 @@ export function CategoriesCarousel() {
 
       {isLoading && <FeedbackState message="Carregando categorias..." />}
       {!isLoading && error && (
-        <FeedbackState message={error} title="Categorias indisponiveis" />
+        <FeedbackState message={error} title="Categorias indisponíveis" />
       )}
       {!isLoading && !error && categories.length === 0 && (
         <FeedbackState message="Nenhuma categoria cadastrada." />

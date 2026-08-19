@@ -1,9 +1,18 @@
+import { ShoppingCart } from "@phosphor-icons/react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
 import { useCart } from "../../hooks/CartContext";
-import { CartButton } from "../CartButton";
-import { CardImage, Container } from "./styles";
+import {
+  AddButton,
+  CardContent,
+  CardImage,
+  CategoryName,
+  Container,
+  ImageWrap,
+  OfferTag,
+  ProductFooter,
+} from "./styles";
 
 export function CardProduct({ product }) {
   const { putProductInCart } = useCart();
@@ -15,15 +24,27 @@ export function CardProduct({ product }) {
 
   return (
     <Container>
-      <CardImage src={product.url} alt={product.name} />
-      <div>
-        <p>{product.name}</p>
+      <ImageWrap>
+        {product.offer && <OfferTag>Oferta</OfferTag>}
+        <CardImage src={product.url} alt={product.name} />
+      </ImageWrap>
+
+      <CardContent>
+        <CategoryName>{product.category?.name || "Seven Bites"}</CategoryName>
+        <h3>{product.name}</h3>
+      </CardContent>
+
+      <ProductFooter>
         <strong>{product.currencyValue}</strong>
-      </div>
-      <CartButton
-        aria-label={`Adicionar ${product.name} ao carrinho`}
-        onClick={handleAddToCart}
-      />
+        <AddButton
+          type="button"
+          aria-label={`Adicionar ${product.name} ao carrinho`}
+          onClick={handleAddToCart}
+        >
+          <ShoppingCart size={18} weight="bold" />
+          Adicionar
+        </AddButton>
+      </ProductFooter>
     </Container>
   );
 }

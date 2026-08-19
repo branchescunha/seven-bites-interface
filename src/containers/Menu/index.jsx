@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { CardProduct } from "../../components/CardProduct";
@@ -7,10 +7,14 @@ import { api } from "../../services/api";
 import { formatPrice } from "../../utils/formatPrice";
 import {
   Banner,
+  BannerContent,
   CategoryButton,
   CategoryMenu,
   Container,
+  MenuContent,
+  MenuHeader,
   ProductsContainer,
+  ProductsCount,
 } from "./styles";
 
 export function Menu() {
@@ -58,7 +62,7 @@ export function Menu() {
         setCategories(newCategories);
         setProducts(newProducts);
       } catch (err) {
-        setError(err.publicMessage || "Nao foi possivel carregar o cardapio.");
+        setError(err.publicMessage || "Não foi possível carregar o cardápio.");
       } finally {
         setIsLoading(false);
       }
@@ -81,48 +85,70 @@ export function Menu() {
   return (
     <Container>
       <Banner>
-        <h1>
-          Cardapio Seven Bites
-          <span>Escolha sua proxima mordida com preparo sob demanda.</span>
-        </h1>
+        <BannerContent>
+          <span>Cardápio Seven Bites</span>
+          <h1>Escolha sua próxima mordida.</h1>
+          <p>
+            Burgers, entradas, bebidas e sobremesas com preparo sob demanda e
+            pedido direto para o carrinho.
+          </p>
+        </BannerContent>
       </Banner>
-      <CategoryMenu>
-        {categories.map((category) => (
-          <CategoryButton
-            key={category.id}
-            $isActiveCategory={category.id === activeCategory}
-            onClick={() => {
-              navigate(
-                {
-                  pathname: "/cardapio",
-                  search: `?categoria=${category.id}`,
-                },
-                {
-                  replace: true,
-                },
-              );
-              setActiveCategory(category.id);
-            }}
-          >
-            {category.name}
-          </CategoryButton>
-        ))}
-      </CategoryMenu>
 
-      <ProductsContainer>
-        {isLoading && <FeedbackState message="Carregando cardapio..." />}
-        {!isLoading && error && (
-          <FeedbackState message={error} title="Cardapio indisponivel" />
-        )}
-        {!isLoading && !error && filteredProducts.length === 0 && (
-          <FeedbackState message="Nenhum produto encontrado." />
-        )}
-        {!isLoading &&
-          !error &&
-          filteredProducts.map((product) => (
-            <CardProduct product={product} key={product.id} />
+      <MenuContent>
+        <MenuHeader>
+          <div>
+            <span>Monte seu pedido</span>
+            <h2>Cardápio completo</h2>
+          </div>
+          {!isLoading && !error && (
+            <ProductsCount>
+              {filteredProducts.length}{" "}
+              {filteredProducts.length === 1 ? "produto" : "produtos"}
+            </ProductsCount>
+          )}
+        </MenuHeader>
+
+        <CategoryMenu aria-label="Filtrar produtos por categoria">
+          {categories.map((category) => (
+            <CategoryButton
+              key={category.id}
+              type="button"
+              $isActiveCategory={category.id === activeCategory}
+              aria-pressed={category.id === activeCategory}
+              onClick={() => {
+                navigate(
+                  {
+                    pathname: "/cardapio",
+                    search: `?categoria=${category.id}`,
+                  },
+                  {
+                    replace: true,
+                  },
+                );
+                setActiveCategory(category.id);
+              }}
+            >
+              {category.name}
+            </CategoryButton>
           ))}
-      </ProductsContainer>
+        </CategoryMenu>
+
+        <ProductsContainer>
+          {isLoading && <FeedbackState message="Carregando cardápio..." />}
+          {!isLoading && error && (
+            <FeedbackState message={error} title="Cardápio indisponível" />
+          )}
+          {!isLoading && !error && filteredProducts.length === 0 && (
+            <FeedbackState message="Nenhum produto encontrado." />
+          )}
+          {!isLoading &&
+            !error &&
+            filteredProducts.map((product) => (
+              <CardProduct product={product} key={product.id} />
+            ))}
+        </ProductsContainer>
+      </MenuContent>
     </Container>
   );
 }

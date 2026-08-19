@@ -1,12 +1,19 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+﻿import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { useCart } from "../../hooks/CartContext";
+import { useUser } from "../../hooks/UserContext";
 import { api } from "../../services/api";
 import { formatPrice } from "../../utils/formatPrice";
 import { Button } from "../index";
-import { Container } from "./styles";
+import {
+  Actions,
+  Container,
+  ResumeLine,
+  ResumeTitle,
+  SummaryFooter,
+} from "./styles";
 
 export function CartResume() {
   const [finalPrice, setFinalPrice] = useState(0);
@@ -16,7 +23,10 @@ export function CartResume() {
   const navigate = useNavigate();
 
   const { cartProducts } = useCart();
+  const { userInfo } = useUser();
   const isCartEmpty = cartProducts.length === 0;
+  const isAuthenticated = Boolean(userInfo?.name);
+  const displayedDeliveryTax = isCartEmpty ? 0 : deliveryTax;
 
   useEffect(() => {
     const sumAllItems = cartProducts.reduce((acc, current) => {
@@ -28,6 +38,21 @@ export function CartResume() {
 
   const submitOrder = async () => {
     if (isCartEmpty || isSubmitting) {
+      return;
+    }
+
+    if (!isAuthenticated) {
+      toast.info("Faça login para continuar para o checkout.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      navigate("/login");
       return;
     }
 
@@ -65,21 +90,32 @@ export function CartResume() {
   return (
     <div>
       <Container>
-        <div className="container-top">
-          <h2 className="title">Resumo do Pedido</h2>
-          <p className="items">Itens</p>
-          <p className="items-price">{formatPrice(finalPrice)}</p>
-          <p className="delivery-tax">Taxa de Entrega</p>
-          <p className="delivery-tax-price">{formatPrice(deliveryTax)}</p>
-        </div>
-        <div className="container-bottom">
-          <p>Total</p>
-          <p>{formatPrice(finalPrice + deliveryTax)}</p>
-        </div>
+        <ResumeTitle>
+          <span>Resumo</span>
+          <h2>Pedido</h2>
+        </ResumeTitle>
+
+        <ResumeLine>
+          <span>Itens</span>
+          <strong>{formatPrice(finalPrice)}</strong>
+        </ResumeLine>
+        <ResumeLine>
+          <span>Taxa de entrega</span>
+          <strong>{formatPrice(displayedDeliveryTax)}</strong>
+        </ResumeLine>
+
+        <SummaryFooter>
+          <span>Total</span>
+          <strong>{formatPrice(finalPrice + displayedDeliveryTax)}</strong>
+        </SummaryFooter>
       </Container>
-      <Button disabled={isCartEmpty || isSubmitting} onClick={submitOrder}>
-        {isSubmitting ? "Processando..." : "Finalizar Pedido"}
-      </Button>
+
+      <Actions>
+        <Button disabled={isCartEmpty || isSubmitting} onClick={submitOrder}>
+          {isSubmitting ? "Processando..." : "Continuar para checkout"}
+        </Button>
+        <Link to="/cardapio">Continuar comprando</Link>
+      </Actions>
     </div>
   );
 }
