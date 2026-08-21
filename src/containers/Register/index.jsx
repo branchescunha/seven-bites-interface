@@ -29,8 +29,8 @@ export function Register() {
       name: yup.string().required("Informe seu nome."),
       email: yup
         .string()
-        .email("Digite um e-mail valido.")
-        .required("O e-mail e obrigatorio."),
+        .email("Digite um e-mail válido.")
+        .required("O e-mail é obrigatório."),
       password: yup
         .string()
         .min(6, "A senha deve ter no mínimo 6 caracteres.")
@@ -52,7 +52,7 @@ export function Register() {
 
   const onSubmit = async (data) => {
     try {
-      const { status } = await api.post(
+      const { status, data: responseData } = await api.post(
         "/users",
         {
           name: data.name,
@@ -70,12 +70,15 @@ export function Register() {
         }, 2000);
         toast.success("Conta criada com sucesso!");
       } else if (status === 409) {
-        toast.error("Email já cadastrado. Faça login para continuar.");
+        toast.error(
+          responseData?.error ||
+            "Já existe uma conta com este e-mail. Entre para continuar.",
+        );
       } else {
         throw new Error();
       }
-    } catch (_error) {
-      toast.error("Falha no sistema. Tente novamente.");
+    } catch (error) {
+      toast.error(error.publicMessage || "Falha no sistema. Tente novamente.");
     }
   };
 

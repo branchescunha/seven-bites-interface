@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { isDemoPaymentMode } from "../../../config/stripeConfig";
 import { useCart } from "../../../hooks/CartContext";
 import { api } from "../../../services/api";
 import { formatPrice } from "../../../utils/formatPrice";
@@ -128,12 +129,15 @@ export function CheckoutForm() {
       <CheckoutGrid>
         <FormCard>
           <div>
-            <TestBadge>Compra de teste</TestBadge>
+            {isDemoPaymentMode && (
+              <TestBadge>Ambiente de demonstração</TestBadge>
+            )}
             <h2>Dados de pagamento</h2>
-            <p>
-              Use apenas cartões de teste nesta versão. Nenhum cartão real deve
-              ser utilizado.
-            </p>
+            {isDemoPaymentMode ? (
+              <p>Nenhuma cobrança real será realizada nesta versão.</p>
+            ) : (
+              <p>Confira os dados antes de confirmar o pedido.</p>
+            )}
           </div>
 
           <PaymentForm id="payment-form" onSubmit={handleSubmit}>

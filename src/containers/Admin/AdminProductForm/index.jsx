@@ -35,7 +35,7 @@ const buildSchema = (isEditing) =>
     file: isEditing
       ? yup
           .mixed()
-          .test("fileSize", "Carregue arquivos de ate 5mb.", (value) => {
+          .test("fileSize", "Carregue arquivos de até 5mb.", (value) => {
             return !value?.length || value[0].size <= 5 * 1024 * 1024;
           })
           .test("type", "Carregue apenas imagens PNG ou JPEG.", (value) => {
@@ -50,7 +50,7 @@ const buildSchema = (isEditing) =>
           .test("required", "Escolha um arquivo para continuar.", (value) => {
             return value && value.length > 0;
           })
-          .test("fileSize", "Carregue arquivos de ate 5mb.", (value) => {
+          .test("fileSize", "Carregue arquivos de até 5mb.", (value) => {
             return (
               value && value.length > 0 && value[0].size <= 5 * 1024 * 1024
             );
@@ -104,7 +104,7 @@ export function AdminProductForm({
     <FormGrid>
       <Form
         onSubmit={handleSubmit(onSubmit)}
-        aria-label="Formulario de produto"
+        aria-label="Formulário de produto"
       >
         <Fieldset>
           <InputGroup>
@@ -143,7 +143,7 @@ export function AdminProductForm({
             />
             <span>Selecionar imagem</span>
           </LabelUpload>
-          <FileName>{filename || "PNG ou JPEG ate 5mb"}</FileName>
+          <FileName>{filename || "PNG ou JPEG até 5mb"}</FileName>
           <ErrorMessage aria-live="polite">
             {errors?.file?.message}
           </ErrorMessage>
@@ -193,10 +193,9 @@ export function AdminProductForm({
             <p>Selecione uma imagem para visualizar o produto.</p>
           </div>
         )}
-        <strong>{isEditing ? "Edicao de produto" : "Novo produto"}</strong>
+        <strong>{isEditing ? "Edição de produto" : "Novo produto"}</strong>
         <p>
-          O preço continua sendo enviado ao backend em centavos e a imagem em
-          multipart/form-data.
+          O preço será salvo em centavos e a imagem ficará vinculada ao item.
         </p>
       </PreviewCard>
     </FormGrid>
