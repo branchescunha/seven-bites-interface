@@ -34,9 +34,9 @@ export const Hero = styled.section`
   position: relative;
   display: grid;
   min-height: 720px;
-  grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.98fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
   align-items: center;
-  gap: ${(props) => props.theme.spacing[16]};
+  gap: ${(props) => props.theme.spacing[10]};
   padding: ${(props) => props.theme.spacing[20]} max(24px, calc((100vw - ${(props) => props.theme.layout.wide}) / 2))
     ${(props) => props.theme.spacing[12]};
   background:
@@ -51,6 +51,18 @@ export const Hero = styled.section`
     width: 44%;
     height: 1px;
     background: linear-gradient(90deg, transparent, ${(props) => props.theme.amber});
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    right: 4%;
+    bottom: 9%;
+    width: min(520px, 42vw);
+    height: min(520px, 42vw);
+    border: 1px solid rgba(200, 138, 45, 0.26);
+    border-radius: 50%;
+    opacity: 0.52;
   }
 
   @media (max-width: 1024px) {
@@ -153,11 +165,9 @@ export const HeroActions = styled.div`
 export const HeroMedia = styled.div`
   position: relative;
   min-height: 520px;
-  border: 1px solid rgba(255, 248, 239, 0.14);
-  border-radius: ${(props) => props.theme.radii.lg};
-  background: ${(props) => props.theme.brandDark};
-  box-shadow: ${(props) => props.theme.shadows.strong};
-  overflow: hidden;
+  margin-right: min(-72px, -4vw);
+  background: transparent;
+  filter: drop-shadow(0 36px 70px rgba(0, 0, 0, 0.34));
   animation: ${riseIn} 640ms ease 80ms both;
 
   &::before {
@@ -165,8 +175,9 @@ export const HeroMedia = styled.div`
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, rgba(32, 33, 36, 0.58), rgba(32, 33, 36, 0.08) 58%),
-      linear-gradient(180deg, transparent 54%, rgba(32, 33, 36, 0.72));
+      linear-gradient(90deg, rgba(63, 11, 20, 0.58), rgba(32, 33, 36, 0.04) 54%),
+      linear-gradient(180deg, transparent 58%, rgba(32, 33, 36, 0.52));
+    border-radius: 36px 0 0 36px;
     z-index: 1;
   }
 
@@ -190,6 +201,7 @@ export const HeroMedia = styled.div`
     height: 100%;
     object-fit: cover;
     object-position: center right;
+    border-radius: 36px 0 0 36px;
   }
 
   div {
@@ -220,6 +232,7 @@ export const HeroMedia = styled.div`
 
   @media (max-width: 1024px) {
     min-height: 420px;
+    margin-right: 0;
   }
 
   @media (max-width: 430px) {

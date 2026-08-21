@@ -4,7 +4,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { useCart } from "../../../hooks/CartContext";
@@ -35,8 +35,6 @@ export function CheckoutForm() {
 
   const stripe = useStripe();
   const elements = useElements();
-  const { state } = useLocation();
-  const dpmCheckerLink = state?.dpmCheckerLink;
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +48,7 @@ export function CheckoutForm() {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      console.error("Stripe ou Elements com falha, tente novamente.");
+      setMessage("Não foi possível carregar o pagamento. Tente novamente.");
       return;
     }
 
@@ -119,22 +117,22 @@ export function CheckoutForm() {
   return (
     <Page>
       <CheckoutHeader>
-        <span>Checkout seguro</span>
-        <h1>Revise e finalize seu pagamento.</h1>
+        <span>Finalizar pedido</span>
+        <h1>Revise tudo antes de pagar.</h1>
         <p>
-          A cobranca e confirmada pelo servidor com os itens do carrinho e a
-          taxa de entrega ja validada.
+          Confira os itens, a taxa de entrega e escolha a forma de pagamento
+          para concluir o pedido.
         </p>
       </CheckoutHeader>
 
       <CheckoutGrid>
         <FormCard>
           <div>
-            <TestBadge>Ambiente de teste</TestBadge>
+            <TestBadge>Compra de teste</TestBadge>
             <h2>Dados de pagamento</h2>
             <p>
-              Use os dados de teste da Stripe. Nenhum cartao real deve ser
-              utilizado neste projeto demo.
+              Use apenas cartões de teste nesta versão. Nenhum cartão real deve
+              ser utilizado.
             </p>
           </div>
 
@@ -149,13 +147,13 @@ export function CheckoutForm() {
               id="submit"
               type="submit"
             >
-              {isLoading ? "Processando pagamento..." : "Pagar agora"}
+              {isLoading ? "Processando pedido..." : "Confirmar pedido"}
             </PrimaryButton>
           </PaymentForm>
 
           <SecureNote>
-            Pagamento processado pela Stripe. O pedido so e criado apos a
-            confirmação do PaymentIntent.
+            O pedido só é enviado para preparo depois da confirmação do
+            pagamento.
           </SecureNote>
         </FormCard>
 
@@ -195,21 +193,6 @@ export function CheckoutForm() {
               <strong>{formatPrice(total)}</strong>
             </SummaryTotal>
           </SummaryCard>
-
-          {dpmCheckerLink && (
-            <SecureNote>
-              Os metodos de pagamento sao disponibilizados de acordo com a sua
-              regiao.{" "}
-              <a
-                href={dpmCheckerLink}
-                id="dpm-integration-checker"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Ver metodos disponiveis
-              </a>
-            </SecureNote>
-          )}
         </PaymentAside>
       </CheckoutGrid>
     </Page>

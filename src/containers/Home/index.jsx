@@ -3,7 +3,6 @@
   Clock,
   Fire,
   ForkKnife,
-  ShieldCheck,
   ShoppingCart,
   Sparkle,
 } from "@phosphor-icons/react";
@@ -42,19 +41,19 @@ import {
 
 const categoryContent = {
   Entradas: {
-    label: "Para abrir o apetite",
+    label: "Comece por aqui",
     tone: "amber",
   },
   Hambúrgueres: {
-    label: "Assinaturas da casa",
+    label: "Chapa quente",
     tone: "bordeaux",
   },
   Bebidas: {
-    label: "Escolhas para acompanhar",
+    label: "Para acompanhar",
     tone: "green",
   },
   Sobremesas: {
-    label: "Final doce e memoravel",
+    label: "Final doce",
     tone: "cream",
   },
 };
@@ -62,18 +61,18 @@ const categoryContent = {
 const benefits = [
   {
     icon: ForkKnife,
-    title: "Artesanal sem espera confusa",
-    text: "Cardápio direto, preparo sob demanda e pedido revisado antes do pagamento.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Pagamento protegido",
-    text: "Fluxo integrado ao Stripe em modo seguro, com validação do pedido no backend.",
+    title: "Feito na hora",
+    text: "Escolha o burger, revise o carrinho e acompanhe tudo sem perder o apetite.",
   },
   {
     icon: Clock,
-    title: "Experiência objetiva",
-    text: "Da escolha ao checkout, cada etapa foi pensada para reduzir fricção.",
+    title: "Pedido sem enrolação",
+    text: "Cardápio claro, preço visível e checkout direto para quem já decidiu.",
+  },
+  {
+    icon: Fire,
+    title: "Sabor em primeiro plano",
+    text: "Fotos, ofertas e categorias ajudam você a escolher pelo que dá vontade.",
   },
 ];
 
@@ -132,12 +131,12 @@ export function Home() {
         <HeroContent>
           <Eyebrow>
             <Sparkle size={18} weight="fill" />
-            Premium fast-casual
+            Hambúrgueres artesanais
           </Eyebrow>
-          <h1>Burgers artesanais com ritmo de cidade.</h1>
+          <h1>O burger chega primeiro pelos olhos.</h1>
           <p>
-            Seven Bites combina ingredientes selecionados, preparo sob demanda e
-            uma jornada digital simples para pedir sem perder o apetite.
+            Pães tostados, queijo derretido, molhos marcantes e um pedido online
+            simples para escolher sem quebrar o clima.
           </p>
           <HeroActions>
             <Link to="/cardapio">
@@ -151,11 +150,11 @@ export function Home() {
         <HeroMedia>
           <img
             src={mediaAssets.homeHero}
-            alt="Hamburguer artesanal premium Seven Bites"
+            alt="Hambúrguer artesanal Seven Bites"
           />
           <div>
             <span>Seven Bites</span>
-            <strong>Signature burger</strong>
+            <strong>Burger da casa</strong>
           </div>
         </HeroMedia>
 
@@ -169,19 +168,19 @@ export function Home() {
             <span>categorias principais</span>
           </StatCard>
           <StatCard>
-            <strong>Stripe</strong>
-            <span>checkout seguro</span>
+            <strong>Pedido</strong>
+            <span>online simples</span>
           </StatCard>
         </HeroHighlights>
       </Hero>
 
       <HomeSection>
         <SectionHeader>
-          <Eyebrow>Escolha por momento</Eyebrow>
-          <h2>Categorias com personalidade própria.</h2>
+          <Eyebrow>Escolha por fome</Eyebrow>
+          <h2>Do começo doce ao burger principal.</h2>
           <p>
-            Quatro caminhos para montar o pedido: entrada, burger, bebida e
-            sobremesa no mesmo ritmo.
+            Entradas, burgers, bebidas e sobremesas organizados para chegar
+            rápido ao que você quer pedir.
           </p>
         </SectionHeader>
 
@@ -193,7 +192,7 @@ export function Home() {
           <CategoryGrid>
             {categories.slice(0, 4).map((category) => {
               const content = categoryContent[category.name] || {
-                label: "Selecao Seven Bites",
+                label: "Seleção Seven Bites",
                 tone: "bordeaux",
               };
 
@@ -220,10 +219,10 @@ export function Home() {
             <Fire size={18} weight="fill" />
             Em destaque
           </Eyebrow>
-          <h2>Ofertas com sabor de assinatura.</h2>
+          <h2>Favoritos para decidir rápido.</h2>
           <p>
-            Seleções com destaque para quem quer decidir rápido sem abrir mão de
-            uma boa escolha.
+            Alguns itens aparecem com destaque para encurtar o caminho entre
+            fome e carrinho.
           </p>
         </SectionHeader>
 
@@ -266,7 +265,7 @@ export function Home() {
       <HomeSection>
         <SectionHeader>
           <Eyebrow>Por que Seven Bites</Eyebrow>
-          <h2>Uma experiência premium sem complicar o pedido.</h2>
+          <h2>Menos passos. Mais vontade de comer.</h2>
         </SectionHeader>
         <BenefitsGrid>
           {benefits.map((benefit) => {
@@ -286,10 +285,10 @@ export function Home() {
       <CtaBand>
         <CtaContent>
           <Eyebrow>Pedido online</Eyebrow>
-          <h2>Monte sua próxima mordida.</h2>
+          <h2>Escolha agora, revise no carrinho.</h2>
           <p>
-            Escolha, revise o carrinho e finalize pelo checkout conectado ao
-            fluxo seguro da Seven Bites.
+            Abra o cardápio, adicione seus favoritos e finalize quando o pedido
+            estiver do seu jeito.
           </p>
         </CtaContent>
         <CtaActions>

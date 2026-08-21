@@ -33,24 +33,15 @@ export const Content = styled.header`
 
 export const Brand = styled(Link)`
   display: flex;
-  min-width: 190px;
-  flex-direction: column;
+  min-width: 156px;
+  align-items: center;
   color: ${(props) => props.theme.white};
   text-decoration: none;
 
   strong {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 800;
     line-height: 1;
-  }
-
-  span {
-    margin-top: ${(props) => props.theme.spacing[2]};
-    color: ${(props) => props.theme.amber};
-    font-size: ${(props) => props.theme.typography.label.size};
-    font-weight: ${(props) => props.theme.typography.label.weight};
-    line-height: ${(props) => props.theme.typography.label.lineHeight};
-    text-transform: uppercase;
   }
 
   @media (max-width: 520px) {
@@ -59,10 +50,6 @@ export const Brand = styled(Link)`
 
     strong {
       font-size: 21px;
-    }
-
-    > span:first-of-type {
-      display: none;
     }
   }
 `;

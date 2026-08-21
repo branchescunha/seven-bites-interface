@@ -85,18 +85,18 @@ export function Register() {
         <span>Seven Bites</span>
         <h1>Crie sua conta para pedir com mais agilidade.</h1>
         <p>
-          Salve seu carrinho, acompanhe o checkout e mantenha seus pedidos
-          conectados ao seu perfil.
+          Salve seus dados de acesso e continue o pedido com menos passos na
+          próxima visita.
         </p>
         <TrustList aria-label="Benefícios do cadastro Seven Bites">
           <li>Cadastro rápido</li>
-          <li>Conta comum por padrao</li>
-          <li>Pagamento em modo teste</li>
+          <li>Pedido conectado à sua conta</li>
+          <li>Carrinho preservado</li>
         </TrustList>
       </LeftContainer>
       <RightContainer>
         <Title>
-          Comece sua experiência <span>Seven Bites</span>
+          Crie sua conta <span>Seven Bites</span>
         </Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>

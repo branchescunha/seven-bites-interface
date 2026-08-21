@@ -88,27 +88,25 @@ export function CartResume() {
   };
 
   return (
-    <div>
-      <Container>
-        <ResumeTitle>
-          <span>Resumo</span>
-          <h2>Pedido</h2>
-        </ResumeTitle>
+    <Container>
+      <ResumeTitle>
+        <span>Resumo</span>
+        <h2>Pedido</h2>
+      </ResumeTitle>
 
-        <ResumeLine>
-          <span>Itens</span>
-          <strong>{formatPrice(finalPrice)}</strong>
-        </ResumeLine>
-        <ResumeLine>
-          <span>Taxa de entrega</span>
-          <strong>{formatPrice(displayedDeliveryTax)}</strong>
-        </ResumeLine>
+      <ResumeLine>
+        <span>Itens</span>
+        <strong>{formatPrice(finalPrice)}</strong>
+      </ResumeLine>
+      <ResumeLine>
+        <span>Taxa de entrega</span>
+        <strong>{formatPrice(displayedDeliveryTax)}</strong>
+      </ResumeLine>
 
-        <SummaryFooter>
-          <span>Total</span>
-          <strong>{formatPrice(finalPrice + displayedDeliveryTax)}</strong>
-        </SummaryFooter>
-      </Container>
+      <SummaryFooter>
+        <span>Total</span>
+        <strong>{formatPrice(finalPrice + displayedDeliveryTax)}</strong>
+      </SummaryFooter>
 
       <Actions>
         <Button disabled={isCartEmpty || isSubmitting} onClick={submitOrder}>
@@ -116,6 +114,6 @@ export function CartResume() {
         </Button>
         <Link to="/cardapio">Continuar comprando</Link>
       </Actions>
-    </div>
+    </Container>
   );
 }

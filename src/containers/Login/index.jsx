@@ -76,14 +76,14 @@ export function Login() {
     <Container>
       <LeftContainer>
         <span>Seven Bites</span>
-        <h1>Entre e finalize seu pedido com segurança.</h1>
+        <h1>Entre para continuar seu pedido.</h1>
         <p>
-          Seu carrinho fica salvo, o pagamento acontece em ambiente seguro e o
-          pedido segue direto para preparo.
+          Seu carrinho fica salvo enquanto você acessa a conta e finaliza o
+          pedido.
         </p>
         <TrustList aria-label="Benefícios da conta Seven Bites">
           <li>Carrinho persistente</li>
-          <li>Checkout protegido</li>
+          <li>Pedido revisado antes do pagamento</li>
           <li>Histórico de pedidos</li>
         </TrustList>
       </LeftContainer>

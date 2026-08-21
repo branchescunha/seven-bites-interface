@@ -100,7 +100,6 @@ export function Header() {
       <Content>
         <Brand to="/" aria-label="Seven Bites - página inicial">
           <strong>Seven Bites</strong>
-          <span>Premium burgers</span>
         </Brand>
 
         {navigation}

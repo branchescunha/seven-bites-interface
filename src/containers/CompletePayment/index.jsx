@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import stripePromise from "../../config/stripeConfig";
 import {
   Actions,
-  DetailCard,
   Page,
   StatusCard,
   StatusIcon,
@@ -80,9 +79,8 @@ const InfoIcon = (
 const STATUS_CONTENT_MAP = {
   succeeded: {
     label: "Pedido confirmado",
-    text: "Pagamento efetuado com sucesso",
-    message:
-      "Seu pagamento foi aprovado em modo teste e o pedido foi registrado.",
+    text: "Seu pedido foi confirmado.",
+    message: "Recebemos a confirmação do pagamento e registramos o pedido.",
     iconColor: "#2f7d4f",
     icon: SuccessIcon,
     primaryText: "Voltar ao cardápio",
@@ -94,7 +92,7 @@ const STATUS_CONTENT_MAP = {
     label: "Pagamento em processamento",
     text: "Estamos aguardando a confirmação",
     message:
-      "A Stripe ainda está processando o pagamento. Você pode voltar ao cardápio enquanto o status é atualizado.",
+      "A confirmação ainda está em andamento. Você pode voltar ao cardápio enquanto o status é atualizado.",
     iconColor: "#c88a2d",
     icon: InfoIcon,
     primaryText: "Voltar ao cardápio",
@@ -106,7 +104,7 @@ const STATUS_CONTENT_MAP = {
     label: "Pagamento recusado",
     text: "Não foi possível concluir o pagamento",
     message:
-      "Revise seu carrinho e tente novamente com outro metodo de pagamento de teste.",
+      "Revise seu carrinho e tente novamente com outro método de pagamento.",
     iconColor: "#b3261e",
     icon: ErrorIcon,
     primaryText: "Tentar novamente",
@@ -132,7 +130,6 @@ function CompletePaymentContent() {
   const stripe = useStripe();
 
   const [status, setStatus] = useState("default");
-  const [intentId, setIntentId] = useState(null);
   const statusContent =
     STATUS_CONTENT_MAP[status] || STATUS_CONTENT_MAP.default;
 
@@ -155,7 +152,6 @@ function CompletePaymentContent() {
       }
 
       setStatus(paymentIntent.status);
-      setIntentId(paymentIntent.id);
     });
   }, [stripe]);
 
@@ -172,18 +168,6 @@ function CompletePaymentContent() {
         <StatusLabel>{statusContent.label}</StatusLabel>
         <h1 id="status-text">{statusContent.text}</h1>
         <StatusMessage>{statusContent.message}</StatusMessage>
-        {intentId && (
-          <DetailCard aria-label="Detalhes do pagamento">
-            <p>
-              <span>PaymentIntent</span>
-              <strong id="intent-id">{intentId}</strong>
-            </p>
-            <p>
-              <span>Status</span>
-              <strong id="intent-status">{status}</strong>
-            </p>
-          </DetailCard>
-        )}
         <Actions>
           <Link id="retry-button" to={statusContent.primaryUrl}>
             {statusContent.primaryText}

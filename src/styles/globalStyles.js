@@ -24,7 +24,6 @@ const globalStyles = createGlobalStyle`
 
     body {
         min-width: 320px;
-        overflow-x: hidden;
         background:
             linear-gradient(180deg, ${(props) => props.theme.cream} 0%, ${(props) => props.theme.creamDeep} 100%),
             ${(props) => props.theme.cream};

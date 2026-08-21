@@ -5,6 +5,8 @@ export const Container = styled.div`
   top: calc(${(props) => props.theme.layout.headerHeight} + ${(props) => props.theme.spacing[6]});
   display: grid;
   gap: ${(props) => props.theme.spacing[4]};
+  max-height: calc(100dvh - ${(props) => props.theme.layout.headerHeight} - ${(props) => props.theme.spacing[12]});
+  overflow: auto;
   padding: ${(props) => props.theme.spacing[6]};
   border: 1px solid ${(props) => props.theme.border};
   border-radius: ${(props) => props.theme.radii.md};
@@ -13,6 +15,8 @@ export const Container = styled.div`
 
   @media (max-width: 920px) {
     position: static;
+    max-height: none;
+    overflow: visible;
   }
 `;
 
@@ -76,7 +80,7 @@ export const SummaryFooter = styled.p`
 export const Actions = styled.div`
   display: grid;
   gap: ${(props) => props.theme.spacing[3]};
-  margin-top: ${(props) => props.theme.spacing[4]};
+  margin-top: ${(props) => props.theme.spacing[2]};
 
   a {
     min-height: 50px;

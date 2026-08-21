@@ -87,10 +87,10 @@ export function Menu() {
       <Banner>
         <BannerContent>
           <span>Cardápio Seven Bites</span>
-          <h1>Escolha sua próxima mordida.</h1>
+          <h1>Escolha o que vai para o carrinho.</h1>
           <p>
-            Burgers, entradas, bebidas e sobremesas com preparo sob demanda e
-            pedido direto para o carrinho.
+            Burgers, entradas, bebidas e sobremesas com preço claro, foto grande
+            e pedido direto.
           </p>
         </BannerContent>
       </Banner>
