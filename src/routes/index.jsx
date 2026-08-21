@@ -26,6 +26,11 @@ const EditProduct = lazy(() =>
 const Home = lazy(() =>
   import("../containers/Home").then((module) => ({ default: module.Home })),
 );
+const ForgotPassword = lazy(() =>
+  import("../containers/ForgotPassword").then((module) => ({
+    default: module.ForgotPassword,
+  })),
+);
 const Login = lazy(() =>
   import("../containers/Login").then((module) => ({ default: module.Login })),
 );
@@ -52,6 +57,11 @@ const Register = lazy(() =>
     default: module.Register,
   })),
 );
+const ResetPassword = lazy(() =>
+  import("../containers/ResetPassword").then((module) => ({
+    default: module.ResetPassword,
+  })),
+);
 
 export function Router() {
   return (
@@ -74,6 +84,8 @@ export function Router() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Register />} />
+        <Route path="/esqueci-senha" element={<ForgotPassword />} />
+        <Route path="/redefinir-senha" element={<ResetPassword />} />
       </Routes>
     </Suspense>
   );

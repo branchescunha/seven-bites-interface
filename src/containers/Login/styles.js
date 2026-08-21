@@ -154,6 +154,19 @@ export const Form = styled.form`
   }
 `;
 
+export const FormMessage = styled.div`
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid ${(props) => props.theme.border};
+  border-radius: ${(props) => props.theme.radii.sm};
+  padding: 14px 16px;
+  background: ${(props) => props.theme.amberSoft};
+  color: ${(props) => props.theme.brandDark};
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+`;
+
 export const InputContainer = styled.div`
   display: flex;
   width: 100%;
@@ -225,5 +238,21 @@ export const Link = styled(ReactLink)`
 
   &:hover {
     text-decoration: underline;
+  }
+`;
+
+export const InlineActions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: 420px;
+  margin-top: -4px;
+
+  p {
+    color: ${(props) => props.theme.muted};
+    font-size: 15px;
+    font-weight: 600;
   }
 `;

@@ -11,6 +11,7 @@ import { api } from "../../services/api";
 import {
   Container,
   Form,
+  InlineActions,
   InputContainer,
   LeftContainer,
   Link,
@@ -128,9 +129,14 @@ export function Login() {
             {isSubmitting ? "Entrando..." : "Entrar"}
           </Button>
         </Form>
-        <p>
-          Ainda não possui conta? <Link to="/cadastro">Criar conta</Link>
-        </p>
+        <InlineActions>
+          <p>
+            <Link to="/esqueci-senha">Esqueci minha senha</Link>
+          </p>
+          <p>
+            Ainda não possui conta? <Link to="/cadastro">Criar conta</Link>
+          </p>
+        </InlineActions>
       </RightContainer>
     </Container>
   );
