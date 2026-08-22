@@ -1,57 +1,51 @@
 # Seven Bites
 
-Seven Bites e uma plataforma web fullstack para uma hamburgueria premium fast-casual, com vitrine comercial, cardapio, carrinho, autenticacao, recuperacao de senha, checkout com Stripe e painel administrativo.
+Seven Bites e uma aplicacao full stack para venda online e operacao administrativa de uma hamburgueria premium fast-casual.
 
-O projeto foi construido como produto de portfolio, simulando uma aplicacao comercial real para venda online, gestao de catalogo e acompanhamento de pedidos.
+Projeto desenvolvido como produto de portfolio, com experiencia publica para clientes, checkout com pagamento integrado e painel administrativo protegido.
+
+**Links:** [Aplicacao](https://sevenbites.vercel.app) · [API](https://seven-bites-api.onrender.com) · [Repositorio da API](https://github.com/branchescunha/seven-bites-api)
 
 ## Preview
 
 <p align="center">
-  <img src="docs/screenshots/01-home-desktop.png" alt="Home desktop do Seven Bites" width="860" />
+  <img src="docs/screenshots/01-home-desktop.png" alt="Home desktop do Seven Bites" width="900" />
 </p>
 
 ## Sobre o projeto
 
-A aplicacao publica apresenta a marca, organiza produtos por categoria, permite montar pedidos, manter o carrinho entre sessoes e finalizar a compra com pagamento integrado. O painel administrativo protege operacoes internas e permite gerenciar produtos, imagens, pedidos e status.
+O Seven Bites resolve o fluxo digital principal de um restaurante: apresentar o catalogo, receber pedidos, autenticar clientes, processar pagamento e registrar a compra no backend.
 
-O frontend foi desenvolvido com foco em identidade visual propria, responsividade real, acessibilidade, consistencia de componentes e integracao segura com a API.
+A experiencia publica cobre Home, cardapio, carrinho, login, cadastro, recuperacao de senha, checkout e confirmacao do pedido. A operacao administrativa permite acompanhar pedidos e gerenciar o catalogo com controle de acesso.
+
+O projeto foi construido com frontend em React, API propria em Node.js, persistencia em PostgreSQL e MongoDB, imagens no Cloudinary, e-mails pelo Resend e pagamentos em Stripe Test Mode.
 
 ## Experiencia do cliente
 
+### Cardapio
+
 <p align="center">
-  <img src="docs/screenshots/03-cardapio-desktop.png" alt="Cardapio desktop do Seven Bites" width="32%" />
-  <img src="docs/screenshots/05-carrinho.png" alt="Carrinho do Seven Bites" width="32%" />
-  <img src="docs/screenshots/09-pagamento-confirmado.png" alt="Pedido confirmado no Seven Bites" width="32%" />
+  <img src="docs/screenshots/03-cardapio-desktop.png" alt="Cardapio desktop do Seven Bites" width="900" />
 </p>
 
-- Home comercial com identidade Seven Bites.
-- Cardapio com categorias, filtros, ofertas e imagens finais.
-- Carrinho persistente com ajuste de quantidade, remocao e totalizacao.
-- Checkout com resumo do pedido, taxa de entrega e Stripe Test Mode.
-- Confirmacao final apos pagamento validado.
+O cardapio organiza produtos por categorias, destaca ofertas, exibe imagens finais e permite adicionar itens ao carrinho com feedback visual.
+
+### Carrinho e checkout
+
+<p align="center">
+  <img src="docs/screenshots/05-carrinho.png" alt="Carrinho desktop do Seven Bites" width="900" />
+</p>
+
+O fluxo segue a jornada Cardapio -> Carrinho -> Checkout -> Pedido. O carrinho mantem os itens entre sessoes, permite ajustar quantidades e envia o pedido para um checkout autenticado com Stripe Elements.
 
 ## Autenticacao
 
 <p align="center">
-  <img src="docs/screenshots/06-login.png" alt="Login do Seven Bites" width="32%" />
-  <img src="docs/screenshots/07-cadastro.png" alt="Cadastro do Seven Bites" width="32%" />
-  <img src="docs/screenshots/08-recuperar-senha.png" alt="Recuperacao de senha do Seven Bites" width="32%" />
+  <img src="docs/screenshots/06-login.png" alt="Login desktop do Seven Bites" width="49%" />
+  <img src="docs/screenshots/07-cadastro.png" alt="Cadastro desktop do Seven Bites" width="49%" />
 </p>
 
-- Cadastro e login com validacao de formulario.
-- Sessao autenticada com JWT.
-- Recuperacao de senha por e-mail com link temporario.
-- Redirecionamento para login quando o checkout exige autenticacao.
-
-## Principais funcionalidades
-
-- Vitrine publica responsiva.
-- Catalogo com produtos, categorias, precos, ofertas e imagens finais.
-- Carrinho com persistencia local e atualizacao de badge.
-- Checkout integrado ao Stripe Elements.
-- Criacao de pedidos com calculo validado no servidor.
-- Fluxos de sucesso, processamento e falha no pagamento.
-- Rotas protegidas para usuario autenticado e administrador.
+Login e cadastro seguem a identidade visual do produto e preservam validacao de formulario, sessao autenticada, redirecionamento para checkout e recuperacao de senha por e-mail.
 
 ## Painel administrativo
 
@@ -60,91 +54,108 @@ O frontend foi desenvolvido com foco em identidade visual propria, responsividad
   <img src="docs/screenshots/11-admin-produtos.png" alt="Produtos no painel administrativo do Seven Bites" width="49%" />
 </p>
 
-- Listagem e filtro de pedidos por status.
-- Detalhamento e atualizacao de pedidos.
-- Listagem, criacao e edicao de produtos.
-- Upload de imagens para produtos e categorias.
-- Guards de rota e autorizacao administrativa no backend.
+A area administrativa e protegida por autenticacao e autorizacao. Ela permite acompanhar pedidos, atualizar status, consultar detalhes, gerenciar produtos, cadastrar novos itens e manter imagens do catalogo.
+
+## Funcionalidades
+
+### Cliente
+
+- Catalogo por categorias.
+- Carrinho persistente.
+- Autenticacao e recuperacao de senha.
+- Checkout com Stripe Elements.
+- Pagamento em ambiente de teste.
+- Registro e confirmacao do pedido.
+- Interface responsiva para desktop, tablet e mobile.
+
+### Administracao
+
+- Autenticacao e autorizacao administrativa.
+- Gerenciamento de pedidos.
+- Atualizacao de status.
+- Gerenciamento do catalogo.
+- Criacao e edicao de produtos.
+- Upload de imagens.
 
 ## Tecnologias
 
+### Frontend
+
 - React
 - Vite
-- JavaScript
 - styled-components
 - React Router
-- Context API
 - Axios
 - React Hook Form
 - Yup
-- Stripe React / Stripe JS
-- Material UI
-- Phosphor Icons
-- Biome
+- React Toastify
+- Stripe.js
+
+### Backend e dados
+
+- Node.js
+- Express
+- PostgreSQL / Neon
+- MongoDB / Mongoose
+
+### Servicos
+
+- Stripe
+- Cloudinary
+- Resend
+- Vercel
+- Render
 
 ## Arquitetura
 
-```mermaid
-flowchart LR
-  Browser[Navegador] --> Frontend[React + Vite]
-  Frontend --> API[Seven Bites API]
-  API --> Postgres[(PostgreSQL / Neon)]
-  API --> Mongo[(MongoDB)]
-  API --> Stripe[Stripe]
-  API --> Cloudinary[Cloudinary]
-  API --> Resend[Resend]
+```txt
+Cliente web
+  -> Seven Bites Interface
+  -> Seven Bites API
+  -> PostgreSQL / MongoDB
+  -> Stripe / Cloudinary / Resend
 ```
+
+O frontend concentra a experiencia de cliente e administrador. A API centraliza regras sensiveis, como autenticacao, autorizacao, calculo de valores, criacao de pedidos, pagamento, envio de e-mails e integracao com servicos externos.
+
+Estrutura essencial:
 
 ```txt
 seven-bites-interface
-|-- docs
-|   `-- screenshots
-|-- public
+|-- docs/screenshots
 |-- src
 |   |-- components
-|   |-- config
 |   |-- containers
 |   |-- hooks
 |   |-- layouts
 |   |-- routes
 |   |-- services
-|   |-- styles
-|   `-- utils
+|   `-- styles
 |-- package.json
-|-- vercel.json
 `-- vite.config.js
 ```
 
-O frontend concentra a experiencia do cliente e do administrador. Regras sensiveis, como precos, totais, autorizacao e criacao de pedidos, sao validadas pela API.
-
 ## Seguranca e integracoes
 
-- API propria em Node.js e Express.
 - Autenticacao com JWT.
-- Rotas administrativas protegidas por autorizacao no servidor.
-- Precos, subtotal, taxa de entrega e total validados no backend.
-- Criacao de pedido protegida por idempotencia de pagamento.
-- Stripe em Test Mode para pagamento no projeto demo.
-- Cloudinary para imagens finais do catalogo.
-- Resend para e-mails de recuperacao de senha.
-- Segredos gerenciados por variaveis de ambiente.
+- Senhas protegidas por hash no backend.
+- Rotas administrativas protegidas por autorizacao.
+- Recuperacao de senha com token temporario.
+- Calculo de subtotal, taxa de entrega e total validado no servidor.
+- Pagamento integrado ao Stripe em Test Mode.
+- Imagens armazenadas no Cloudinary.
+- E-mails transacionais enviados pelo Resend.
 
 ## Responsividade
 
-<p align="center">
-  <img src="docs/screenshots/02-home-mobile.png" alt="Home mobile do Seven Bites" width="30%" />
-  <img src="docs/screenshots/04-cardapio-mobile.png" alt="Cardapio mobile do Seven Bites" width="30%" />
-  <img src="docs/screenshots/12-carrinho-mobile.png" alt="Carrinho mobile do Seven Bites" width="30%" />
-</p>
+A interface foi desenvolvida com layouts responsivos para desktop, tablet e dispositivos moveis, incluindo adaptacoes especificas de navegacao, catalogo, carrinho e autenticacao.
 
-A interface foi validada em desktop, tablet e mobile, com navegacao adaptada, grids responsivos, areas clicaveis adequadas e preservacao dos fluxos principais.
+## Links do projeto
 
-## Aplicacao
-
-- Frontend: https://sevenbites.vercel.app
-- API: https://seven-bites-api.onrender.com
+- Aplicacao em producao: https://sevenbites.vercel.app
+- API em producao: https://seven-bites-api.onrender.com
 - Repositorio da API: https://github.com/branchescunha/seven-bites-api
 
 ## Autor
 
-Andre Vinicius Branches Cunha
+André Vinícius Branches Cunha
