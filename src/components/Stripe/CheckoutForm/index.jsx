@@ -7,7 +7,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { isDemoPaymentMode } from "../../../config/stripeConfig";
 import { useCart } from "../../../hooks/CartContext";
 import { api } from "../../../services/api";
 import { formatPrice } from "../../../utils/formatPrice";
@@ -25,7 +24,6 @@ import {
   SummaryCard,
   SummaryLine,
   SummaryTotal,
-  TestBadge,
 } from "./styles";
 
 const DELIVERY_TAX = 500;
@@ -129,15 +127,8 @@ export function CheckoutForm() {
       <CheckoutGrid>
         <FormCard>
           <div>
-            {isDemoPaymentMode && (
-              <TestBadge>Ambiente de demonstração</TestBadge>
-            )}
             <h2>Dados de pagamento</h2>
-            {isDemoPaymentMode ? (
-              <p>Nenhuma cobrança real será realizada nesta versão.</p>
-            ) : (
-              <p>Confira os dados antes de confirmar o pedido.</p>
-            )}
+            <p>Confira os dados antes de confirmar o pedido.</p>
           </div>
 
           <PaymentForm id="payment-form" onSubmit={handleSubmit}>

@@ -81,19 +81,6 @@ export const FormCard = styled.article`
   }
 `;
 
-export const TestBadge = styled.span`
-  display: inline-flex;
-  width: fit-content;
-  border: 1px solid ${(props) => props.theme.amber};
-  border-radius: ${(props) => props.theme.radii.pill};
-  padding: 7px 10px;
-  background: ${(props) => props.theme.amberSoft};
-  color: ${(props) => props.theme.brandDark};
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-`;
-
 export const PaymentForm = styled.form`
   display: grid;
   gap: ${(props) => props.theme.spacing[5]};
