@@ -21,6 +21,11 @@ export const Container = styled.article`
     box-shadow: ${(props) => props.theme.shadows.medium};
     transform: translateY(-3px);
   }
+
+  @media (max-width: 620px) {
+    gap: ${(props) => props.theme.spacing[3]};
+    padding: ${(props) => props.theme.spacing[3]};
+  }
 `;
 
 export const ImageWrap = styled.div`
@@ -39,7 +44,7 @@ export const ImageWrap = styled.div`
     ${(props) => props.theme.cream};
 
   @media (max-width: 430px) {
-    min-height: 196px;
+    min-height: 124px;
   }
 `;
 
@@ -56,6 +61,13 @@ export const OfferTag = styled.span`
   font-size: ${(props) => props.theme.typography.label.size};
   font-weight: ${(props) => props.theme.typography.label.weight};
   line-height: ${(props) => props.theme.typography.label.lineHeight};
+
+  @media (max-width: 430px) {
+    top: ${(props) => props.theme.spacing[2]};
+    left: ${(props) => props.theme.spacing[2]};
+    padding: 6px ${(props) => props.theme.spacing[2]};
+    font-size: 11px;
+  }
 `;
 
 export const CardImage = styled.img`
@@ -65,7 +77,7 @@ export const CardImage = styled.img`
   object-fit: cover;
 
   @media (max-width: 430px) {
-    min-height: 196px;
+    min-height: 124px;
   }
 `;
 
@@ -81,12 +93,33 @@ export const CardContent = styled.div`
     font-weight: ${(props) => props.theme.typography.h3.weight};
     line-height: ${(props) => props.theme.typography.h3.lineHeight};
   }
+
+  @media (max-width: 620px) {
+    gap: ${(props) => props.theme.spacing[1]};
+    min-height: 58px;
+
+    h3 {
+      display: -webkit-box;
+      overflow: hidden;
+      font-size: 15px;
+      line-height: 1.24;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+  }
 `;
 
 export const CategoryName = styled.p`
   color: ${(props) => props.theme.muted};
   font-size: ${(props) => props.theme.typography.small.size};
   font-weight: 700;
+
+  @media (max-width: 620px) {
+    overflow: hidden;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 export const ProductFooter = styled.footer`
@@ -105,6 +138,11 @@ export const ProductFooter = styled.footer`
   @media (max-width: 430px) {
     align-items: stretch;
     flex-direction: column;
+    gap: ${(props) => props.theme.spacing[2]};
+
+    strong {
+      font-size: 19px;
+    }
   }
 `;
 
@@ -136,5 +174,8 @@ export const AddButton = styled.button`
 
   @media (max-width: 430px) {
     width: 100%;
+    min-height: 44px;
+    padding: 0 ${(props) => props.theme.spacing[2]};
+    font-size: 13px;
   }
 `;

@@ -73,7 +73,9 @@ export const Hero = styled.section`
   }
 
   @media (max-width: 430px) {
-    padding: ${(props) => props.theme.spacing[12]} 18px ${(props) => props.theme.spacing[10]};
+    gap: ${(props) => props.theme.spacing[6]};
+    padding: ${(props) => props.theme.spacing[10]} 16px
+      ${(props) => props.theme.spacing[8]};
   }
 `;
 
@@ -107,11 +109,13 @@ export const HeroContent = styled.div`
 
   @media (max-width: 430px) {
     h1 {
-      font-size: ${(props) => props.theme.typography.display.mobile};
+      font-size: clamp(34px, 10vw, 40px);
     }
 
     p {
+      margin-top: ${(props) => props.theme.spacing[4]};
       font-size: ${(props) => props.theme.typography.body.mobile};
+      line-height: 1.58;
     }
   }
 `;
@@ -156,8 +160,11 @@ export const HeroActions = styled.div`
   }
 
   @media (max-width: 430px) {
+    margin-top: ${(props) => props.theme.spacing[6]};
+
     a {
       width: 100%;
+      min-height: 48px;
     }
   }
 `;
@@ -236,12 +243,13 @@ export const HeroMedia = styled.div`
   }
 
   @media (max-width: 430px) {
-    min-height: 320px;
+    min-height: 252px;
 
     div {
       left: ${(props) => props.theme.spacing[4]};
       right: ${(props) => props.theme.spacing[4]};
       bottom: ${(props) => props.theme.spacing[4]};
+      padding: ${(props) => props.theme.spacing[4]};
     }
   }
 `;
@@ -253,7 +261,15 @@ export const HeroHighlights = styled.div`
   gap: ${(props) => props.theme.spacing[4]};
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 430px) {
+    gap: ${(props) => props.theme.spacing[3]};
+
+    > *:nth-child(3) {
+      grid-column: 1 / -1;
+    }
   }
 `;
 
@@ -279,6 +295,14 @@ export const StatCard = styled.div`
     font-size: ${(props) => props.theme.typography.small.size};
     font-weight: 600;
   }
+
+  @media (max-width: 430px) {
+    padding: ${(props) => props.theme.spacing[4]};
+
+    strong {
+      font-size: 24px;
+    }
+  }
 `;
 
 export const HomeSection = styled.section`
@@ -288,7 +312,7 @@ export const HomeSection = styled.section`
 
   @media (max-width: 430px) {
     width: min(100% - 32px, ${(props) => props.theme.layout.wide});
-    padding-top: ${(props) => props.theme.spacing[12]};
+    padding-top: ${(props) => props.theme.spacing[10]};
   }
 `;
 
@@ -312,8 +336,16 @@ export const SectionHeader = styled.header`
   }
 
   @media (max-width: 430px) {
+    margin-bottom: ${(props) => props.theme.spacing[5]};
+
     h2 {
-      font-size: ${(props) => props.theme.typography.h2.mobile};
+      font-size: clamp(26px, 7.6vw, 30px);
+    }
+
+    p {
+      margin-top: ${(props) => props.theme.spacing[3]};
+      font-size: ${(props) => props.theme.typography.body.mobile};
+      line-height: 1.55;
     }
   }
 `;
@@ -328,7 +360,8 @@ export const CategoryGrid = styled.div`
   }
 
   @media (max-width: 520px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: ${(props) => props.theme.spacing[3]};
   }
 `;
 
@@ -392,6 +425,20 @@ export const CategoryCard = styled(Link)`
     font-size: ${(props) => props.theme.typography.small.size};
     font-weight: 700;
   }
+
+  @media (max-width: 520px) {
+    min-height: 172px;
+    gap: ${(props) => props.theme.spacing[1]};
+    padding: ${(props) => props.theme.spacing[4]};
+
+    strong {
+      font-size: 18px;
+    }
+
+    small {
+      font-size: 12px;
+    }
+  }
 `;
 
 export const CategoryMedia = styled.div`
@@ -414,7 +461,8 @@ export const ProductGrid = styled.div`
   }
 
   @media (max-width: 620px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: ${(props) => props.theme.spacing[3]};
   }
 `;
 
@@ -493,12 +541,41 @@ export const ProductCard = styled.article`
   }
 
   @media (max-width: 430px) {
+    gap: ${(props) => props.theme.spacing[3]};
+    padding: ${(props) => props.theme.spacing[3]};
+
+    > div:nth-of-type(2) {
+      min-height: 58px;
+    }
+
+    strong {
+      display: -webkit-box;
+      overflow: hidden;
+      font-size: 15px;
+      line-height: 1.24;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    p {
+      margin-top: ${(props) => props.theme.spacing[1]};
+      font-size: 12px;
+    }
+
     footer {
       align-items: stretch;
       flex-direction: column;
+      gap: ${(props) => props.theme.spacing[2]};
+
+      > span {
+        font-size: 19px;
+      }
 
       button {
         width: 100%;
+        min-height: 44px;
+        padding: 0 ${(props) => props.theme.spacing[2]};
+        font-size: 13px;
       }
     }
   }
@@ -532,6 +609,21 @@ export const ProductImage = styled.div`
     font-size: ${(props) => props.theme.typography.label.size};
     font-weight: ${(props) => props.theme.typography.label.weight};
   }
+
+  @media (max-width: 430px) {
+    min-height: 124px;
+
+    img {
+      min-height: 124px;
+    }
+
+    span {
+      top: ${(props) => props.theme.spacing[2]};
+      left: ${(props) => props.theme.spacing[2]};
+      padding: 6px ${(props) => props.theme.spacing[2]};
+      font-size: 11px;
+    }
+  }
 `;
 
 export const BenefitsGrid = styled.div`
@@ -540,7 +632,15 @@ export const BenefitsGrid = styled.div`
   gap: ${(props) => props.theme.spacing[4]};
 
   @media (max-width: 900px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 520px) {
+    gap: ${(props) => props.theme.spacing[3]};
+
+    > *:nth-child(3) {
+      grid-column: 1 / -1;
+    }
   }
 `;
 
@@ -568,6 +668,25 @@ export const BenefitCard = styled.article`
     font-size: ${(props) => props.theme.typography.body.mobile};
     line-height: ${(props) => props.theme.typography.body.lineHeight};
   }
+
+  @media (max-width: 520px) {
+    gap: ${(props) => props.theme.spacing[2]};
+    padding: ${(props) => props.theme.spacing[4]};
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    strong {
+      font-size: 17px;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 1.45;
+    }
+  }
 `;
 
 export const CtaBand = styled.section`
@@ -592,6 +711,7 @@ export const CtaBand = styled.section`
   @media (max-width: 430px) {
     width: min(100% - 32px, ${(props) => props.theme.layout.wide});
     margin: ${(props) => props.theme.spacing[12]} auto;
+    padding: ${(props) => props.theme.spacing[5]};
   }
 `;
 

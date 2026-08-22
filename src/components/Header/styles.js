@@ -33,6 +33,7 @@ export const Content = styled.header`
 
 export const Brand = styled(Link)`
   display: flex;
+  min-height: 44px;
   min-width: 156px;
   align-items: center;
   color: ${(props) => props.theme.white};

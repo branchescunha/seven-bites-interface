@@ -43,10 +43,16 @@ export const Banner = styled.section`
   }
 
   @media (max-width: 430px) {
-    padding: ${(props) => props.theme.spacing[10]} 18px;
+    gap: ${(props) => props.theme.spacing[3]};
+    padding: ${(props) => props.theme.spacing[7]} 16px;
 
     strong {
-      font-size: ${(props) => props.theme.typography.h1.mobile};
+      font-size: clamp(30px, 8.5vw, 36px);
+    }
+
+    p {
+      font-size: ${(props) => props.theme.typography.body.mobile};
+      line-height: 1.5;
     }
   }
 `;
@@ -73,10 +79,10 @@ export const PageHeader = styled.header`
 
   @media (max-width: 430px) {
     width: min(100% - 32px, ${(props) => props.theme.layout.wide});
-    padding-top: ${(props) => props.theme.spacing[8]};
+    padding-top: ${(props) => props.theme.spacing[6]};
 
     h1 {
-      font-size: ${(props) => props.theme.typography.h2.mobile};
+      font-size: clamp(26px, 7.5vw, 30px);
     }
   }
 `;
@@ -97,6 +103,8 @@ export const Content = styled.div`
 
   @media (max-width: 430px) {
     width: min(100% - 32px, ${(props) => props.theme.layout.wide});
+    gap: ${(props) => props.theme.spacing[4]};
+    padding-top: ${(props) => props.theme.spacing[5]};
     padding-bottom: ${(props) => props.theme.spacing[12]};
   }
 `;

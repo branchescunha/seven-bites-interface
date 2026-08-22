@@ -22,7 +22,9 @@ export const ItemRow = styled.article`
   }
 
   @media (max-width: 430px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: ${(props) => props.theme.spacing[3]};
+    padding: ${(props) => props.theme.spacing[3]};
   }
 `;
 
@@ -45,8 +47,8 @@ export const ProductImage = styled.img`
   }
 
   @media (max-width: 430px) {
-    width: 100%;
-    height: 180px;
+    width: 82px;
+    height: 82px;
   }
 `;
 
@@ -54,6 +56,10 @@ export const ProductInfo = styled.div`
   display: grid;
   gap: ${(props) => props.theme.spacing[5]};
   min-width: 0;
+
+  @media (max-width: 430px) {
+    gap: ${(props) => props.theme.spacing[3]};
+  }
 `;
 
 export const ItemHeader = styled.header`
@@ -68,6 +74,19 @@ export const ItemHeader = styled.header`
     font-size: ${(props) => props.theme.typography.h3.mobile};
     font-weight: ${(props) => props.theme.typography.h3.weight};
     line-height: ${(props) => props.theme.typography.h3.lineHeight};
+  }
+
+  @media (max-width: 430px) {
+    gap: ${(props) => props.theme.spacing[2]};
+
+    h2 {
+      display: -webkit-box;
+      overflow: hidden;
+      font-size: 16px;
+      line-height: 1.22;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
   }
 `;
 
@@ -101,6 +120,31 @@ export const ItemDetails = styled.div`
     grid-template-columns: 1fr;
     align-items: stretch;
   }
+
+  @media (max-width: 430px) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: ${(props) => props.theme.spacing[3]};
+
+    > div:first-child {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: ${(props) => props.theme.spacing[2]};
+      padding-bottom: ${(props) => props.theme.spacing[2]};
+      border-bottom: 1px solid ${(props) => props.theme.border};
+    }
+
+    span {
+      margin-bottom: 0;
+      font-size: 12px;
+    }
+
+    strong {
+      font-size: 16px;
+    }
+  }
 `;
 
 export const ButtonGroup = styled.div`
@@ -132,6 +176,16 @@ export const ButtonGroup = styled.div`
       background-color: ${(props) => props.theme.brand};
       color: ${(props) => props.theme.white};
       transform: translateY(-1px);
+    }
+  }
+
+  @media (max-width: 430px) {
+    justify-content: space-between;
+    min-height: 44px;
+
+    button {
+      width: 38px;
+      height: 38px;
     }
   }
 `;
@@ -194,6 +248,11 @@ export const ProductTotalPrice = styled.p`
   color: ${(props) => props.theme.brand};
   font-size: 20px;
   font-weight: 800;
+
+  @media (max-width: 430px) {
+    font-size: 17px;
+    text-align: right;
+  }
 `;
 
 export const RemoveButton = styled.button`
@@ -215,5 +274,11 @@ export const RemoveButton = styled.button`
     background: ${(props) => props.theme.brand};
     color: ${(props) => props.theme.white};
     transform: translateY(-1px);
+  }
+
+  @media (max-width: 430px) {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
   }
 `;

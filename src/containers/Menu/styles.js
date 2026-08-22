@@ -27,8 +27,8 @@ export const Banner = styled.section`
     ${(props) => props.theme.graphite};
 
   @media (max-width: 430px) {
-    padding: ${(props) => props.theme.spacing[12]} 18px
-      ${(props) => props.theme.spacing[10]};
+    padding: ${(props) => props.theme.spacing[10]} 16px
+      ${(props) => props.theme.spacing[8]};
   }
 `;
 
@@ -61,7 +61,13 @@ export const BannerContent = styled.div`
 
   @media (max-width: 430px) {
     h1 {
-      font-size: ${(props) => props.theme.typography.h1.mobile};
+      font-size: clamp(32px, 9vw, 38px);
+    }
+
+    p {
+      margin-top: ${(props) => props.theme.spacing[4]};
+      font-size: ${(props) => props.theme.typography.body.mobile};
+      line-height: 1.55;
     }
   }
 `;
@@ -74,7 +80,8 @@ export const MenuContent = styled.section`
 
   @media (max-width: 430px) {
     width: min(100% - 32px, ${(props) => props.theme.layout.wide});
-    padding-top: ${(props) => props.theme.spacing[8]};
+    padding: ${(props) => props.theme.spacing[6]} 0
+      ${(props) => props.theme.spacing[12]};
   }
 `;
 
@@ -105,6 +112,7 @@ export const MenuHeader = styled.header`
     align-items: start;
     flex-direction: column;
     gap: ${(props) => props.theme.spacing[3]};
+    margin-bottom: ${(props) => props.theme.spacing[4]};
 
     h2 {
       font-size: ${(props) => props.theme.typography.h2.mobile};
@@ -137,6 +145,7 @@ export const CategoryMenu = styled.div`
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: ${(props) => props.theme.spacing[2]};
+    margin-bottom: ${(props) => props.theme.spacing[6]};
     padding: ${(props) => props.theme.spacing[2]};
   }
 `;
@@ -169,7 +178,9 @@ export const CategoryButton = styled.button`
 
   @media (max-width: 520px) {
     width: 100%;
+    min-height: 40px;
     padding: 0 ${(props) => props.theme.spacing[3]};
+    font-size: 13px;
   }
 `;
 
@@ -187,6 +198,7 @@ export const ProductsContainer = styled.div`
   }
 
   @media (max-width: 620px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: ${(props) => props.theme.spacing[3]};
   }
 `;

@@ -28,6 +28,9 @@ export const Container = styled.div`
   }
 
   a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
     color: ${(props) => props.theme.amber};
     font-size: ${(props) => props.theme.typography.button.size};
     font-weight: ${(props) => props.theme.typography.button.weight};
